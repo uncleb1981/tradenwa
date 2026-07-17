@@ -6,7 +6,7 @@ import Link from 'next/link';
 import ListingCard from '@/components/ListingCard';
 import CategoryPills from '@/components/CategoryPills';
 import { isJustAdded } from '@/lib/store';
-import { CITIES, MOCK_LISTINGS } from '@/lib/mockData';
+import { CITIES } from '@/lib/mockData';
 import { getSupabase, adaptListing } from '@/lib/supabase';
 
 function Skeleton() {
@@ -44,13 +44,12 @@ function HomeContent() {
           .order('created_at', { ascending: false });
 
         if (error || !data || data.length === 0) {
-          // Fallback to mock data so the home page never looks empty
-          setListings(MOCK_LISTINGS);
+          setListings([]);
         } else {
           setListings(data.map(adaptListing));
         }
       } catch {
-        setListings(MOCK_LISTINGS);
+        setListings([]);
       } finally {
         setLoading(false);
       }
@@ -88,20 +87,6 @@ function HomeContent() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      {/* Summer Banner */}
-      <div className="rounded-2xl overflow-hidden bg-gradient-to-r from-green-800 to-green-600 text-white px-6 py-5 flex items-center justify-between gap-4">
-        <div>
-          <div className="text-xs font-semibold uppercase tracking-wider text-green-200 mb-1">July 2025</div>
-          <div className="text-2xl font-black leading-tight">☀️ Summer gear season</div>
-          <div className="text-green-100 text-sm mt-1">Kayaks, bikes, outdoor tools — hot trades right now in NWA</div>
-        </div>
-        <Link
-          href="/?category=Outdoor%2FSports"
-          className="flex-shrink-0 bg-amber-400 text-amber-900 px-4 py-2 rounded-full text-sm font-bold hover:bg-amber-300 transition-colors"
-        >
-          Browse Outdoor
-        </Link>
-      </div>
 
       {/* Just Added */}
       {!loading && justAdded.length > 0 && (
@@ -181,8 +166,12 @@ function HomeContent() {
         ) : filtered.length === 0 ? (
           <div className="text-center py-16 text-gray-400">
             <div className="text-4xl mb-3">🌾</div>
-            <div className="font-semibold text-gray-600 mb-1">No listings found</div>
-            <div className="text-sm">Try a different filter or be the first to post!</div>
+            <div className="font-semibold text-gray-600 mb-1">
+              {listings.length === 0 ? 'No listings yet — be the first to post a trade!' : 'No listings found'}
+            </div>
+            {listings.length > 0 && (
+              <div className="text-sm">Try a different filter or be the first to post!</div>
+            )}
             <Link href="/listings/create" className="mt-4 inline-block bg-green-800 text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-green-700 transition-colors">
               Post a Trade
             </Link>

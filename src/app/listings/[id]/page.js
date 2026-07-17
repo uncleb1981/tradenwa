@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Avatar from '@/components/Avatar';
 import ListingCard from '@/components/ListingCard';
 import { daysRemaining } from '@/lib/store';
-import { TRADE_TEMPLATES, SERVICE_CATEGORIES, MOCK_LISTINGS } from '@/lib/mockData';
+import { TRADE_TEMPLATES, SERVICE_CATEGORIES } from '@/lib/mockData';
 import { getSupabase, adaptListing } from '@/lib/supabase';
 
 const CONDITION_COLORS = {
@@ -158,6 +158,7 @@ export default function ListingDetail() {
   const [copied, setCopied] = useState(false);
   const [reportSent, setReportSent] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     async function fetchListing() {
@@ -177,11 +178,7 @@ export default function ListingDetail() {
           .single();
 
         if (error || !data) {
-          // Try mock data as fallback
-          const mock = MOCK_LISTINGS.find((l) => l.id === id);
-          if (!mock) { router.push('/'); return; }
-          setListing(mock);
-          setSimilar(MOCK_LISTINGS.filter((x) => x.id !== id && x.category === mock.category).slice(0, 3));
+          setNotFound(true);
           setLoading(false);
           return;
         }
@@ -206,7 +203,7 @@ export default function ListingDetail() {
 
         setSimilar((similarData || []).map(adaptListing));
       } catch {
-        router.push('/');
+        setNotFound(true);
       } finally {
         setLoading(false);
       }
@@ -237,6 +234,17 @@ export default function ListingDetail() {
           <div className="h-24 bg-gray-100 rounded" />
         </div>
       </div>
+    </div>
+  );
+
+  if (notFound) return (
+    <div className="max-w-4xl mx-auto px-4 py-16 text-center">
+      <div className="text-4xl mb-3">🔍</div>
+      <h2 className="text-xl font-black text-gray-900 mb-2">Listing not found</h2>
+      <p className="text-sm text-gray-500 mb-6">This listing may have expired or been removed.</p>
+      <Link href="/" className="inline-block bg-green-800 text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-green-700 transition-colors">
+        Browse listings
+      </Link>
     </div>
   );
 

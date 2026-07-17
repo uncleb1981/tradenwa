@@ -1,6 +1,6 @@
 'use client';
 
-import { MOCK_USER, MOCK_LISTINGS, MOCK_CONVERSATIONS } from './mockData';
+import { MOCK_USER, MOCK_CONVERSATIONS } from './mockData';
 
 const LISTINGS_KEY = 'tradenwa_listings';
 const USER_KEY = 'tradenwa_user';
@@ -39,14 +39,13 @@ export function logout() {
 // ── Listings ──────────────────────────────────────────────────────────────────
 
 export function getListings() {
-  if (!isClient()) return MOCK_LISTINGS;
+  if (!isClient()) return [];
   try {
     const stored = localStorage.getItem(LISTINGS_KEY);
     if (stored) return JSON.parse(stored);
-    localStorage.setItem(LISTINGS_KEY, JSON.stringify(MOCK_LISTINGS));
-    return MOCK_LISTINGS;
+    return [];
   } catch {
-    return MOCK_LISTINGS;
+    return [];
   }
 }
 
