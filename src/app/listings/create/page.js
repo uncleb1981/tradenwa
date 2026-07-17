@@ -161,7 +161,7 @@ export default function CreateListing() {
           category: form.category,
           condition: SERVICE_CATEGORIES.includes(form.category) ? null : (form.condition || 'Good'),
           offering: form.iHave,
-          seeking: form.iWantText,
+          seeking: form.iWant.length > 0 ? form.iWant : [form.iWantText],
           city: form.city,
           open_to_offers: form.openToOffers,
           photo_url: photoUrl,
@@ -403,14 +403,16 @@ export default function CreateListing() {
             {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city}</p>}
           </div>
 
-          <div className="flex items-center gap-3 p-4 bg-amber-50 rounded-xl border border-amber-100">
-            <button
-              type="button"
-              onClick={() => update('openToOffers', !form.openToOffers)}
-              className={`relative w-12 h-6 rounded-full transition-colors ${form.openToOffers ? 'bg-amber-400' : 'bg-gray-300'}`}
-            >
-              <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${form.openToOffers ? 'translate-x-7' : 'translate-x-1'}`} />
-            </button>
+          <div
+            className="flex items-center gap-3 p-4 bg-amber-50 rounded-xl border border-amber-100 cursor-pointer select-none"
+            onClick={() => update('openToOffers', !form.openToOffers)}
+          >
+            <div className={`relative flex-shrink-0 w-12 h-6 rounded-full transition-colors duration-200 ${form.openToOffers ? 'bg-amber-400' : 'bg-gray-300'}`}>
+              <div
+                style={{ transform: form.openToOffers ? 'translateX(24px)' : 'translateX(2px)' }}
+                className="absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200"
+              />
+            </div>
             <div>
               <div className="text-sm font-bold text-gray-900">Open to offers</div>
               <div className="text-xs text-gray-500">Willing to consider trades not on my want list</div>
