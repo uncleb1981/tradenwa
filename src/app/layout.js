@@ -2,7 +2,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 
 export const metadata = {
-  title: "TradeNWA – Trade local. Live better.",
+  title: "TradeNWA – Swap Happens",
   description: "Northwest Arkansas local barter marketplace. Trade skills, goods, and services with your neighbors.",
 };
 
@@ -15,8 +15,8 @@ export default function RootLayout({ children }) {
         <footer className="bg-white border-t border-gray-100 mt-12 py-8">
           <div className="max-w-6xl mx-auto px-4 text-center">
             <div className="text-green-800 font-black text-lg mb-1">TradeNWA</div>
-            <div className="text-sm text-gray-400">Trade local. Live better. · Northwest Arkansas</div>
-            <div className="text-xs text-gray-300 mt-2">© 2025 TradeNWA · Bentonville, AR</div>
+            <div className="text-sm text-gray-400">Swap Happens</div>
+            <div className="text-xs text-gray-300 mt-2">© 2025 TradeNWA</div>
           </div>
         </footer>
       </body>

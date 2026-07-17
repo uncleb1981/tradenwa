@@ -43,7 +43,7 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <div className="text-4xl font-black text-green-800 mb-1">TradeNWA</div>
-          <div className="text-sm text-amber-500 font-medium">Trade local. Live better.</div>
+          <div className="text-sm text-amber-500 font-medium">Swap Happens</div>
         </div>
 
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">

@@ -120,11 +120,10 @@ export default function CreateListing() {
     if (s === 0) {
       if (!form.category) errs.category = 'Select a category';
       if (!form.title.trim()) errs.title = 'Add a title';
-      if (form.title.trim().length > 0 && form.title.trim().length < 5) errs.title = 'Title must be at least 5 characters';
+      if (form.title.trim().length > 0 && form.title.trim().length < 2) errs.title = 'Title must be at least 2 characters';
+      if (!form.iHave.trim()) errs.iHave = 'Describe what you have';
     }
     if (s === 1) {
-      if (form.description.trim().length < 50) errs.description = `Description must be at least 50 characters (${form.description.trim().length}/50)`;
-      if (!form.iHave.trim()) errs.iHave = 'Describe what you have';
       if (!form.iWantText.trim()) errs.iWantText = 'Describe what you want';
       if (form.iWant.length === 0) errs.iWant = 'Select at least one category you want';
       if (!form.city) errs.city = 'Select your city';
@@ -258,18 +257,23 @@ export default function CreateListing() {
 
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">
-              Title <span className="text-red-500">*</span>
+              What I have <span className="text-red-500">*</span>
             </label>
             <input
-              value={form.title}
-              onChange={(e) => update('title', e.target.value)}
+              value={form.iHave}
+              onChange={(e) => {
+                const val = e.target.value;
+                const updated = { ...form, iHave: val, title: val };
+                setForm(updated);
+                saveDraft(updated);
+              }}
               placeholder="e.g. Lawn mowing service, Standing desk, Guitar lessons..."
               maxLength={80}
               className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-700"
             />
             <div className="flex justify-between mt-1">
-              {errors.title ? <p className="text-red-500 text-xs">{errors.title}</p> : <span />}
-              <span className="text-xs text-gray-400">{form.title.length}/80</span>
+              {errors.iHave ? <p className="text-red-500 text-xs">{errors.iHave}</p> : <span />}
+              <span className="text-xs text-gray-400">{form.iHave.length}/80</span>
             </div>
           </div>
 
@@ -314,7 +318,6 @@ export default function CreateListing() {
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">
               Description <span className="text-red-500">*</span>
-              <span className="text-gray-400 font-normal ml-1">(50 char min)</span>
             </label>
             <textarea
               value={form.description}
@@ -323,12 +326,7 @@ export default function CreateListing() {
               placeholder="Describe what you're offering in detail. The more specific, the better the match!"
               className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-700 resize-none"
             />
-            <div className="flex justify-between mt-1">
-              {errors.description ? <p className="text-red-500 text-xs">{errors.description}</p> : <span />}
-              <span className={`text-xs ${form.description.trim().length < 50 ? 'text-red-400' : 'text-green-600'}`}>
-                {form.description.trim().length}/50+
-              </span>
-            </div>
+            {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
           </div>
 
           {!isService && (
@@ -352,19 +350,6 @@ export default function CreateListing() {
               </div>
             </div>
           )}
-
-          <div>
-            <label className="block text-sm font-bold text-gray-700 mb-1">
-              What I have <span className="text-red-500">*</span>
-            </label>
-            <input
-              value={form.iHave}
-              onChange={(e) => update('iHave', e.target.value)}
-              placeholder='e.g. Motorized standing desk (60", bamboo top)'
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-700"
-            />
-            {errors.iHave && <p className="text-red-500 text-xs mt-1">{errors.iHave}</p>}
-          </div>
 
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">

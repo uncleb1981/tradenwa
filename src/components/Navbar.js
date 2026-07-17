@@ -78,7 +78,7 @@ export default function Navbar() {
           <Link href="/" className="flex-shrink-0 mr-1">
             <div className="flex flex-col leading-none">
               <span className="text-xl font-black text-green-800 tracking-tight">TradeNWA</span>
-              <span className="text-xs text-amber-500 font-medium hidden sm:block">Swap goods & services. No cash needed.</span>
+              <span className="text-xs text-amber-500 font-medium hidden sm:block">Swap Happens</span>
             </div>
           </Link>
 
