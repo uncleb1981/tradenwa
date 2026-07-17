@@ -75,13 +75,33 @@ export default function ChatPage() {
           filter: `conversation_id=eq.${id}`,
         },
         (payload) => {
-          setMessages((prev) => [...prev, adaptMessage(payload.new)]);
+          setMessages((prev) => {
+            if (prev.find((m) => m.id === payload.new.id)) return prev;
+            return [...prev, adaptMessage(payload.new)];
+          });
         }
       )
       .subscribe();
 
+    // Polling fallback every 3 seconds in case Realtime is not enabled
+    const poll = setInterval(async () => {
+      const { data: msgs } = await supabase
+        .from('messages')
+        .select('*')
+        .eq('conversation_id', id)
+        .order('created_at', { ascending: true });
+      if (msgs) {
+        setMessages((prev) => {
+          const existingIds = new Set(prev.map((m) => m.id));
+          const newMsgs = msgs.map(adaptMessage).filter((m) => !existingIds.has(m.id));
+          return newMsgs.length > 0 ? [...prev, ...newMsgs] : prev;
+        });
+      }
+    }, 3000);
+
     return () => {
       supabase.removeChannel(channel);
+      clearInterval(poll);
     };
   }, [id]);
 
