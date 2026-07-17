@@ -76,7 +76,7 @@ export default function InboxPage() {
 
   if (loading) return (
     <div className="max-w-2xl mx-auto px-4 py-12 flex justify-center">
-      <div className="w-8 h-8 border-4 border-green-800 border-t-transparent rounded-full animate-spin" />
+      <div className="w-8 h-8 border-4 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#2D4B8E', borderTopColor: 'transparent' }} />
     </div>
   );
 
@@ -95,7 +95,7 @@ export default function InboxPage() {
           <div className="text-3xl mb-3">💬</div>
           <div className="font-semibold text-gray-600 mb-1">No conversations yet</div>
           <div className="text-sm text-gray-400 mb-4">Propose a trade on any listing to start a conversation.</div>
-          <Link href="/" className="bg-green-800 text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-green-700 transition-colors">
+          <Link href="/" className="text-white px-6 py-2 rounded-full text-sm font-semibold transition-colors" style={{ backgroundColor: '#2D4B8E' }}>
             Browse Listings
           </Link>
         </div>
@@ -110,7 +110,7 @@ export default function InboxPage() {
                     <div className="font-bold text-gray-900 truncate">{conv.otherUser?.name || 'Unknown'}</div>
                     <div className="text-xs text-gray-400 flex-shrink-0">{timeAgo(conv.lastMessageAt)}</div>
                   </div>
-                  <div className="text-xs text-green-700 font-medium mb-0.5 truncate">{conv.listing?.title}</div>
+                  <div className="text-xs font-medium mb-0.5 truncate" style={{ color: '#2D4B8E' }}>{conv.listing?.title}</div>
                   <div className="text-sm text-gray-500 truncate">
                     {conv.lastMessage?.message.replace(/\n/g, ' ') || 'No messages yet'}
                   </div>

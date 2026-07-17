@@ -105,9 +105,9 @@ function ProposeModal({ listing, user, onClose }) {
               </button>
             </div>
 
-            <div className="bg-green-50 rounded-xl p-3 mb-4 text-sm">
-              <div className="font-semibold text-green-900 mb-0.5">Trading for:</div>
-              <div className="text-green-800">{listing.title}</div>
+            <div className="rounded-xl p-3 mb-4 text-sm" style={{ backgroundColor: '#EEF2FF' }}>
+              <div className="font-semibold mb-0.5" style={{ color: '#2D4B8E' }}>Trading for:</div>
+              <div style={{ color: '#2D4B8E' }}>{listing.title}</div>
             </div>
 
             {error && <p className="text-sm text-red-500 mb-3">{error}</p>}
@@ -122,7 +122,7 @@ function ProposeModal({ listing, user, onClose }) {
                   value={offering}
                   onChange={(e) => setOffering(e.target.value)}
                   placeholder="Describe what you're trading..."
-                  className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-700"
+                  className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2"
                 />
               </div>
               <div>
@@ -131,12 +131,12 @@ function ProposeModal({ listing, user, onClose }) {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   rows={5}
-                  className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-700 resize-none"
+                  className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 resize-none"
                 />
               </div>
               <button
                 type="submit"
-                className="w-full bg-green-800 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition-colors"
+                className="w-full text-white py-3 rounded-xl font-bold transition-colors" style={{ backgroundColor: '#2D4B8E' }}
               >
                 Send Proposal
               </button>
@@ -256,7 +256,7 @@ export default function ListingDetail() {
       <div className="text-4xl mb-3">🔍</div>
       <h2 className="text-xl font-black text-gray-900 mb-2">Listing not found</h2>
       <p className="text-sm text-gray-500 mb-6">This listing may have expired or been removed.</p>
-      <Link href="/" className="inline-block bg-green-800 text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-green-700 transition-colors">
+      <Link href="/" className="inline-block text-white px-6 py-2 rounded-full text-sm font-semibold transition-colors" style={{ backgroundColor: '#2D4B8E' }}>
         Browse listings
       </Link>
     </div>
@@ -276,7 +276,7 @@ export default function ListingDetail() {
 
       <div className="max-w-4xl mx-auto px-4 py-6">
         {/* Back */}
-        <Link href="/" className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-green-800 mb-4 transition-colors">
+        <Link href="/" className="inline-flex items-center gap-1 text-sm text-gray-500 mb-4 transition-colors" onMouseEnter={e => e.currentTarget.style.color='#2D4B8E'} onMouseLeave={e => e.currentTarget.style.color=''}>
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
@@ -330,7 +330,7 @@ export default function ListingDetail() {
               <div className="flex gap-2 flex-wrap mb-4">
                 <Link
                   href={`/listings/${id}/edit`}
-                  className="text-xs px-3 py-1.5 rounded-full border-2 border-green-700 text-green-800 font-semibold hover:bg-green-50 transition-colors"
+                  className="text-xs px-3 py-1.5 rounded-full border-2 font-semibold transition-colors" style={{ borderColor: '#2D4B8E', color: '#2D4B8E' }}
                 >
                   Edit Listing
                 </Link>
@@ -369,12 +369,12 @@ export default function ListingDetail() {
             </div>
 
             {/* I Have / I Want */}
-            <div className="bg-green-50 rounded-xl p-4 mb-4 space-y-2">
+            <div className="rounded-xl p-4 mb-4 space-y-2" style={{ backgroundColor: '#EEF2FF' }}>
               <div>
-                <div className="text-xs font-bold text-green-700 uppercase tracking-wider mb-0.5">I have</div>
-                <div className="text-green-900 font-semibold">{listing.iHave}</div>
+                <div className="text-xs font-bold uppercase tracking-wider mb-0.5" style={{ color: '#2D4B8E' }}>I have</div>
+                <div className="font-semibold" style={{ color: '#1E3464' }}>{listing.iHave}</div>
               </div>
-              <div className="border-t border-green-100 pt-2">
+              <div className="border-t pt-2" style={{ borderColor: '#C7D2FE' }}>
                 <div className="text-xs font-bold text-amber-600 uppercase tracking-wider mb-0.5">I want</div>
                 <div className="text-gray-800 font-semibold">{listing.iWantText}</div>
                 {listing.iWant && listing.iWant.length > 0 && (
@@ -400,7 +400,7 @@ export default function ListingDetail() {
                 <div className="flex items-center gap-2">
                   <span className="font-bold text-gray-900">{listing.poster?.name}</span>
                   {verified && (
-                    <span className="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded-full font-medium flex items-center gap-0.5">
+                    <span className="text-xs px-2 py-0.5 rounded-full font-medium flex items-center gap-0.5" style={{ backgroundColor: '#EEF2FF', color: '#2D4B8E' }}>
                       ✓ Verified NWA
                     </span>
                   )}
@@ -421,7 +421,7 @@ export default function ListingDetail() {
               {listing.poster?.id !== user?.id ? (
                 <button
                   onClick={handlePropose}
-                  className="w-full bg-green-800 text-white py-3 rounded-xl font-bold text-base hover:bg-green-700 transition-colors"
+                  className="w-full text-white py-3 rounded-xl font-bold text-base transition-colors" style={{ backgroundColor: '#2D4B8E' }} onMouseEnter={e => e.currentTarget.style.backgroundColor='#243D75'} onMouseLeave={e => e.currentTarget.style.backgroundColor='#2D4B8E'}
                 >
                   🤝 Propose a Trade
                 </button>

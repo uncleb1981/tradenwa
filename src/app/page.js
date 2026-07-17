@@ -85,7 +85,27 @@ function HomeContent() {
 
   const trendingCity = city || 'NWA';
 
+  const showHero = !loading && listings.length > 0;
+
   return (
+    <div className="space-y-0">
+
+    {/* Hero */}
+    {showHero && (
+      <div className="w-full py-14 px-4 text-white text-center" style={{ backgroundColor: '#2D4B8E' }}>
+        <h1 className="text-4xl sm:text-5xl font-black mb-3 leading-tight">Trade what you have.<br />Get what you need.</h1>
+        <p className="text-lg mb-8 opacity-90">NWA&rsquo;s free marketplace for swapping goods &amp; services — no cash required.</p>
+        <div className="flex flex-wrap gap-3 justify-center">
+          <Link href="/listings/create" className="bg-white font-bold px-8 py-3 rounded-full text-base transition-colors hover:bg-gray-100" style={{ color: '#2D4B8E' }}>
+            Post a Trade
+          </Link>
+          <a href="#browse" className="border-2 border-white text-white font-bold px-8 py-3 rounded-full text-base transition-colors hover:bg-white/10">
+            Browse
+          </a>
+        </div>
+      </div>
+    )}
+
     <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
 
       {/* Just Added */}
@@ -130,15 +150,16 @@ function HomeContent() {
       </section>
 
       {/* Filters */}
-      <section>
-        <div className="flex flex-col sm:flex-row gap-3 mb-4">
+      <section id="browse">
+        <div className="flex flex-col sm:flex-row gap-3 mb-4 sticky top-16 z-10 bg-white/95 backdrop-blur-sm shadow-sm py-3 px-2 -mx-2 rounded-xl">
           <div className="flex-1">
             <CategoryPills selected={category} onChange={setCategory} />
           </div>
           <select
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            className="px-3 py-1.5 rounded-full border border-gray-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-green-700 text-gray-600"
+            className="px-3 py-1.5 rounded-full border border-gray-200 text-sm bg-white focus:outline-none focus:ring-2 text-gray-600"
+            style={{ '--tw-ring-color': '#2D4B8E' }}
           >
             <option value="">All cities</option>
             {CITIES.map((c) => (
@@ -172,7 +193,7 @@ function HomeContent() {
             {listings.length > 0 && (
               <div className="text-sm">Try a different filter or be the first to post!</div>
             )}
-            <Link href="/listings/create" className="mt-4 inline-block bg-green-800 text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-green-700 transition-colors">
+            <Link href="/listings/create" className="mt-4 inline-block text-white px-6 py-2 rounded-full text-sm font-semibold transition-colors" style={{ backgroundColor: '#2D4B8E' }}>
               Post a Trade
             </Link>
           </div>
@@ -182,7 +203,7 @@ function HomeContent() {
               <h2 className="text-lg font-black text-gray-900">Browse All</h2>
               <span className="text-sm text-gray-400">{filtered.length} listings</span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filtered.map((l) => (
                 <ListingCard key={l.id} listing={l} />
               ))}
@@ -196,10 +217,11 @@ function HomeContent() {
         <div className="text-2xl mb-2">🤝</div>
         <h3 className="font-black text-gray-900 text-lg mb-1">Have something to offer?</h3>
         <p className="text-sm text-gray-500 mb-4">List a service, good, or skill — find someone in NWA who has what you need.</p>
-        <Link href="/listings/create" className="inline-block bg-green-800 text-white px-8 py-2.5 rounded-full font-semibold hover:bg-green-700 transition-colors">
+        <Link href="/listings/create" className="inline-block text-white px-8 py-2.5 rounded-full font-semibold transition-colors" style={{ backgroundColor: '#2D4B8E' }}>
           Post a Trade
         </Link>
       </div>
+    </div>
     </div>
   );
 }

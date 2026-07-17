@@ -161,7 +161,7 @@ export default function ChatPage() {
 
   if (loading) return (
     <div className="max-w-2xl mx-auto px-4 py-12 flex justify-center">
-      <div className="w-8 h-8 border-4 border-green-800 border-t-transparent rounded-full animate-spin" />
+      <div className="w-8 h-8 border-4 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#2D4B8E', borderTopColor: 'transparent' }} />
     </div>
   );
 
@@ -186,7 +186,7 @@ export default function ChatPage() {
       {/* Listing context card */}
       {listing && (
         <Link href={`/listings/${listing.id}`}>
-          <div className="bg-green-50 border border-green-100 rounded-xl p-3 mb-4 flex items-center gap-3 hover:bg-green-100 transition-colors">
+          <div className="rounded-xl p-3 mb-4 flex items-center gap-3 transition-colors" style={{ backgroundColor: '#EEF2FF', border: '1px solid #C7D2FE' }}>
             {listing.photo && (
               <img
                 src={listing.photo}
@@ -196,10 +196,10 @@ export default function ChatPage() {
               />
             )}
             <div className="flex-1 min-w-0">
-              <div className="text-xs text-green-600 font-semibold mb-0.5">Trading for</div>
+              <div className="text-xs font-semibold mb-0.5" style={{ color: '#2D4B8E' }}>Trading for</div>
               <div className="text-sm font-bold text-gray-900 truncate">{listing.title}</div>
               <div className="text-xs text-gray-500 truncate">
-                <span className="text-green-700">Have:</span> {listing.iHave} ·{' '}
+                <span style={{ color: '#2D4B8E' }}>Have:</span> {listing.iHave} ·{' '}
                 <span className="text-amber-600">Want:</span> {listing.iWantText}
               </div>
             </div>
@@ -217,13 +217,16 @@ export default function ChatPage() {
           return (
             <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'} gap-2`}>
               {!isMe && <Avatar name={otherUser?.name || '?'} size="xs" className="mt-auto" />}
-              <div className={`max-w-[75%] rounded-2xl px-4 py-2 text-sm whitespace-pre-wrap ${
-                isMe
-                  ? 'bg-green-800 text-white rounded-br-sm'
-                  : 'bg-white border border-gray-100 text-gray-800 rounded-bl-sm'
-              }`}>
+              <div
+                className={`max-w-[75%] rounded-2xl px-4 py-2 text-sm whitespace-pre-wrap ${
+                  isMe
+                    ? 'text-white rounded-br-sm'
+                    : 'bg-white border border-gray-100 text-gray-800 rounded-bl-sm'
+                }`}
+                style={isMe ? { backgroundColor: '#2D4B8E' } : {}}
+              >
                 {msg.text}
-                <div className={`text-xs mt-1 ${isMe ? 'text-green-300' : 'text-gray-400'}`}>
+                <div className={`text-xs mt-1 ${isMe ? 'text-blue-200' : 'text-gray-400'}`}>
                   {timeAgo(msg.timestamp)}
                 </div>
               </div>
@@ -237,7 +240,7 @@ export default function ChatPage() {
       {!tradeDone ? (
         <button
           onClick={handleMarkComplete}
-          className="mb-3 w-full border-2 border-green-200 text-green-800 py-2 rounded-xl text-sm font-semibold hover:bg-green-50 transition-colors flex items-center justify-center gap-2"
+          className="mb-3 w-full border-2 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-2" style={{ borderColor: '#C7D2FE', color: '#2D4B8E' }}
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -245,7 +248,7 @@ export default function ChatPage() {
           Mark Trade Complete
         </button>
       ) : (
-        <div className="mb-3 w-full bg-green-50 border border-green-200 text-green-700 py-2 rounded-xl text-sm font-semibold text-center">
+        <div className="mb-3 w-full border py-2 rounded-xl text-sm font-semibold text-center" style={{ backgroundColor: '#EEF2FF', borderColor: '#C7D2FE', color: '#2D4B8E' }}>
           ✅ Trade marked complete!
         </div>
       )}
@@ -256,12 +259,12 @@ export default function ChatPage() {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Type a message..."
-          className="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-700"
+          className="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2"
         />
         <button
           type="submit"
           disabled={!text.trim() || sending}
-          className="bg-green-800 text-white px-4 py-2.5 rounded-xl font-semibold text-sm hover:bg-green-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          className="text-white px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed" style={{ backgroundColor: '#2D4B8E' }}
         >
           Send
         </button>

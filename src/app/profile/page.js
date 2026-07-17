@@ -85,7 +85,7 @@ export default function ProfilePage() {
 
   if (loading) return (
     <div className="max-w-4xl mx-auto px-4 py-12 flex items-center justify-center">
-      <div className="w-8 h-8 border-4 border-green-800 border-t-transparent rounded-full animate-spin" />
+      <div className="w-8 h-8 border-4 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#2D4B8E', borderTopColor: 'transparent' }} />
     </div>
   );
 
@@ -106,7 +106,7 @@ export default function ProfilePage() {
             </div>
             <h2 className="text-xl font-black text-gray-900 mb-1">{profile.name}</h2>
             {verified && (
-              <div className="inline-flex items-center gap-1 bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-semibold mb-2">
+              <div className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-full font-semibold mb-2" style={{ backgroundColor: '#EEF2FF', color: '#2D4B8E' }}>
                 ✓ Verified NWA
               </div>
             )}
@@ -132,7 +132,7 @@ export default function ProfilePage() {
                   <input
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-700"
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-700"
                   />
                 </div>
                 <div>
@@ -140,7 +140,7 @@ export default function ProfilePage() {
                   <select
                     value={form.city}
                     onChange={(e) => setForm({ ...form, city: e.target.value })}
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-700 bg-white"
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-700 bg-white"
                   >
                     {CITIES.map((c) => <option key={c} value={c}>{c}</option>)}
                   </select>
@@ -148,21 +148,21 @@ export default function ProfilePage() {
                 <div>
                   <label className="block text-xs font-semibold text-gray-600 mb-1">
                     Zip Code
-                    <span className="ml-1 text-green-600 font-normal">(starts with 727 = Verified NWA)</span>
+                    <span className="ml-1 font-normal" style={{ color: '#2D4B8E' }}>(starts with 727 = Verified NWA)</span>
                   </label>
                   <input
                     value={form.zip}
                     onChange={(e) => setForm({ ...form, zip: e.target.value })}
                     maxLength={5}
                     placeholder="72712"
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-700"
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-700"
                   />
                 </div>
                 <div className="flex gap-2">
                   <button
                     type="submit"
                     disabled={saving}
-                    className="flex-1 bg-green-800 text-white py-2 rounded-lg text-sm font-bold hover:bg-green-700 disabled:opacity-50"
+                    className="flex-1 text-white py-2 rounded-lg text-sm font-bold disabled:opacity-50" style={{ backgroundColor: '#2D4B8E' }}
                   >
                     {saving ? 'Saving...' : 'Save'}
                   </button>
@@ -178,7 +178,7 @@ export default function ProfilePage() {
             )}
 
             {saved && (
-              <div className="mt-2 text-xs text-green-700 font-semibold text-center">✓ Profile saved!</div>
+              <div className="mt-2 text-xs font-semibold text-center" style={{ color: '#2D4B8E' }}>✓ Profile saved!</div>
             )}
 
             {!verified && (
@@ -196,7 +196,7 @@ export default function ProfilePage() {
             <h2 className="text-lg font-black text-gray-900">My Listings</h2>
             <Link
               href="/listings/create"
-              className="bg-green-800 text-white px-4 py-1.5 rounded-full text-sm font-semibold hover:bg-green-700 transition-colors"
+              className="text-white px-4 py-1.5 rounded-full text-sm font-semibold transition-colors" style={{ backgroundColor: '#2D4B8E' }}"
             >
               + New
             </Link>
@@ -207,7 +207,7 @@ export default function ProfilePage() {
               <div className="text-3xl mb-3">📦</div>
               <div className="font-semibold text-gray-600 mb-1">No listings yet</div>
               <div className="text-sm text-gray-400 mb-4">Post your first trade to get started!</div>
-              <Link href="/listings/create" className="bg-green-800 text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-green-700 transition-colors">
+              <Link href="/listings/create" className="text-white px-6 py-2 rounded-full text-sm font-semibold transition-colors" style={{ backgroundColor: '#2D4B8E' }}">
                 Post a Trade
               </Link>
             </div>
@@ -217,7 +217,7 @@ export default function ProfilePage() {
                 <div key={l.id}>
                   <ListingCard listing={l} />
                   <div className="flex items-center gap-3 mt-1 px-1 text-xs font-medium">
-                    <Link href={`/listings/${l.id}/edit`} className="text-green-700 hover:underline">Edit</Link>
+                    <Link href={`/listings/${l.id}/edit`} className="hover:underline" style={{ color: '#2D4B8E' }}">Edit</Link>
                     <span className="text-gray-300">|</span>
                     <button
                       className="text-amber-600 hover:underline"

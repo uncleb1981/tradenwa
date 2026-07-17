@@ -142,7 +142,7 @@ export default function EditListing() {
 
   if (loading) return (
     <div className="max-w-2xl mx-auto px-4 py-12 flex items-center justify-center">
-      <div className="w-8 h-8 border-4 border-green-800 border-t-transparent rounded-full animate-spin" />
+      <div className="w-8 h-8 border-4 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#2D4B8E', borderTopColor: 'transparent' }} />
     </div>
   );
 
@@ -169,8 +169,8 @@ export default function EditListing() {
                 onClick={() => update('category', cat)}
                 className={`px-3 py-2 rounded-xl text-sm font-medium border-2 transition-colors text-left ${
                   form.category === cat
-                    ? 'border-green-700 bg-green-50 text-green-900'
-                    : 'border-gray-200 text-gray-600 hover:border-green-300'
+                    ? 'border-blue-700 bg-blue-50 text-blue-900'
+                    : 'border-gray-200 text-gray-600 hover:border-blue-300'
                 }`}
               >
                 {cat}
@@ -189,7 +189,7 @@ export default function EditListing() {
             value={form.title}
             onChange={(e) => update('title', e.target.value)}
             maxLength={80}
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-700"
+            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-700"
           />
           <div className="flex justify-between mt-1">
             {errors.title ? <p className="text-red-500 text-xs">{errors.title}</p> : <span />}
@@ -201,7 +201,7 @@ export default function EditListing() {
         <div>
           <label className="block text-sm font-bold text-gray-700 mb-1">Photo</label>
           <div
-            className="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center cursor-pointer hover:border-green-400 transition-colors"
+            className="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center cursor-pointer hover:border-blue-400 transition-colors"
             onClick={() => fileRef.current?.click()}
           >
             {displayPhoto ? (
@@ -227,7 +227,7 @@ export default function EditListing() {
             </button>
           )}
           {form.newPhotoPreview && (
-            <p className="text-xs text-green-600 mt-1">New photo selected — will replace existing on save</p>
+            <p className="text-xs mt-1" style={{ color: '#2D4B8E' }}>New photo selected — will replace existing on save</p>
           )}
         </div>
 
@@ -241,11 +241,11 @@ export default function EditListing() {
             value={form.description}
             onChange={(e) => update('description', e.target.value)}
             rows={5}
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-700 resize-none"
+            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-700 resize-none"
           />
           <div className="flex justify-between mt-1">
             {errors.description ? <p className="text-red-500 text-xs">{errors.description}</p> : <span />}
-            <span className={`text-xs ${form.description.trim().length < 50 ? 'text-red-400' : 'text-green-600'}`}>
+            <span className={`text-xs ${form.description.trim().length < 50 ? 'text-red-400' : 'text-blue-600'}`}>
               {form.description.trim().length}/50+
             </span>
           </div>
@@ -263,8 +263,8 @@ export default function EditListing() {
                   onClick={() => update('condition', c)}
                   className={`px-4 py-1.5 rounded-full text-sm font-medium border-2 transition-colors ${
                     form.condition === c
-                      ? 'border-green-700 bg-green-50 text-green-900'
-                      : 'border-gray-200 text-gray-600 hover:border-green-300'
+                      ? 'border-blue-700 bg-blue-50 text-blue-900'
+                      : 'border-gray-200 text-gray-600 hover:border-blue-300'
                   }`}
                 >
                   {c}
@@ -282,7 +282,7 @@ export default function EditListing() {
           <input
             value={form.iHave}
             onChange={(e) => update('iHave', e.target.value)}
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-700"
+            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-700"
           />
           {errors.iHave && <p className="text-red-500 text-xs mt-1">{errors.iHave}</p>}
         </div>
@@ -295,7 +295,7 @@ export default function EditListing() {
           <input
             value={form.iWantText}
             onChange={(e) => update('iWantText', e.target.value)}
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-700"
+            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-700"
           />
           {errors.iWantText && <p className="text-red-500 text-xs mt-1">{errors.iWantText}</p>}
         </div>
@@ -308,7 +308,7 @@ export default function EditListing() {
           <select
             value={form.city}
             onChange={(e) => update('city', e.target.value)}
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-700 bg-white"
+            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-700 bg-white"
           >
             <option value="">Select city</option>
             {CITIES.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -346,7 +346,7 @@ export default function EditListing() {
           <button
             type="submit"
             disabled={saving}
-            className="flex-1 bg-green-800 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+            className="flex-1 text-white py-3 rounded-xl font-bold transition-colors disabled:opacity-50 flex items-center justify-center gap-2" style={{ backgroundColor: '#2D4B8E' }}
           >
             {saving ? (
               <>

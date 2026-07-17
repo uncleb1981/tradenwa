@@ -30,18 +30,21 @@ function StepIndicator({ step }) {
     <div className="flex items-center gap-2 mb-8">
       {STEPS.map((label, i) => (
         <div key={i} className="flex items-center gap-2">
-          <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${
-            i < step ? 'bg-green-800 text-white' :
-            i === step ? 'bg-green-800 text-white ring-2 ring-green-300' :
-            'bg-gray-200 text-gray-500'
-          }`}>
+          <div
+            className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors"
+            style={{
+              backgroundColor: i <= step ? '#2D4B8E' : '#E5E7EB',
+              color: i <= step ? '#fff' : '#6B7280',
+              boxShadow: i === step ? '0 0 0 3px #C7D2FE' : 'none',
+            }}
+          >
             {i < step ? '✓' : i + 1}
           </div>
-          <span className={`text-sm font-medium hidden sm:block ${i === step ? 'text-green-800' : 'text-gray-400'}`}>
+          <span className="text-sm font-medium hidden sm:block" style={{ color: i === step ? '#2D4B8E' : '#9CA3AF' }}>
             {label}
           </span>
           {i < STEPS.length - 1 && (
-            <div className={`h-0.5 w-8 ${i < step ? 'bg-green-800' : 'bg-gray-200'}`} />
+            <div className="h-0.5 w-8" style={{ backgroundColor: i < step ? '#2D4B8E' : '#E5E7EB' }} />
           )}
         </div>
       ))}
@@ -148,7 +151,6 @@ export default function CreateListing() {
       const supabase = getSupabase();
       let photoUrl = null;
 
-      // Upload photo if provided
       if (form.photo) {
         const ext = form.photo.name.split('.').pop();
         const filename = `${user.id}/${Date.now()}.${ext}`;
@@ -245,11 +247,10 @@ export default function CreateListing() {
                   key={cat}
                   type="button"
                   onClick={() => update('category', cat)}
-                  className={`px-3 py-2 rounded-xl text-sm font-medium border-2 transition-colors text-left ${
-                    form.category === cat
-                      ? 'border-green-700 bg-green-50 text-green-900'
-                      : 'border-gray-200 text-gray-600 hover:border-green-300'
-                  }`}
+                  className="px-3 py-2 rounded-xl text-sm font-medium border-2 transition-colors text-left"
+                  style={form.category === cat
+                    ? { borderColor: '#2D4B8E', backgroundColor: '#EEF2FF', color: '#1E3464' }
+                    : { borderColor: '#E5E7EB', color: '#4B5563' }}
                 >
                   {cat}
                 </button>
@@ -272,7 +273,7 @@ export default function CreateListing() {
               }}
               placeholder="e.g. Lawn mowing service, Standing desk, Guitar lessons..."
               maxLength={80}
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-700"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2"
             />
             <div className="flex justify-between mt-1">
               {errors.iHave ? <p className="text-red-500 text-xs">{errors.iHave}</p> : <span />}
@@ -283,7 +284,7 @@ export default function CreateListing() {
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">Photo (optional)</label>
             <div
-              className="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center cursor-pointer hover:border-green-400 transition-colors"
+              className="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center cursor-pointer transition-colors hover:border-blue-400"
               onClick={() => fileRef.current?.click()}
             >
               {form.photoPreview ? (
@@ -308,7 +309,10 @@ export default function CreateListing() {
 
           <button
             onClick={nextStep}
-            className="w-full bg-green-800 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition-colors"
+            className="w-full text-white py-3 rounded-xl font-bold transition-colors"
+            style={{ backgroundColor: '#2D4B8E' }}
+            onMouseEnter={e => e.currentTarget.style.backgroundColor = '#243D75'}
+            onMouseLeave={e => e.currentTarget.style.backgroundColor = '#2D4B8E'}
           >
             Next: Add Details →
           </button>
@@ -327,7 +331,7 @@ export default function CreateListing() {
               onChange={(e) => update('description', e.target.value)}
               rows={5}
               placeholder="Describe what you're offering in detail. The more specific, the better the match!"
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-700 resize-none"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 resize-none"
             />
             {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
           </div>
@@ -341,11 +345,10 @@ export default function CreateListing() {
                     key={c}
                     type="button"
                     onClick={() => update('condition', c)}
-                    className={`px-4 py-1.5 rounded-full text-sm font-medium border-2 transition-colors ${
-                      form.condition === c
-                        ? 'border-green-700 bg-green-50 text-green-900'
-                        : 'border-gray-200 text-gray-600 hover:border-green-300'
-                    }`}
+                    className="px-4 py-1.5 rounded-full text-sm font-medium border-2 transition-colors"
+                    style={form.condition === c
+                      ? { borderColor: '#2D4B8E', backgroundColor: '#EEF2FF', color: '#1E3464' }
+                      : { borderColor: '#E5E7EB', color: '#4B5563' }}
                   >
                     {c}
                   </button>
@@ -385,7 +388,7 @@ export default function CreateListing() {
               value={form.iWantText}
               onChange={(e) => update('iWantText', e.target.value)}
               placeholder="e.g. Road bike or mountain bike, any brand"
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-700"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2"
             />
             {errors.iWantText && <p className="text-red-500 text-xs mt-1">{errors.iWantText}</p>}
           </div>
@@ -397,7 +400,7 @@ export default function CreateListing() {
             <select
               value={form.city}
               onChange={(e) => update('city', e.target.value)}
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-700 bg-white"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 bg-white"
             >
               <option value="">Select city</option>
               {CITIES.map((c) => (
@@ -432,7 +435,10 @@ export default function CreateListing() {
             </button>
             <button
               onClick={nextStep}
-              className="flex-2 flex-1 bg-green-800 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition-colors"
+              className="flex-1 text-white py-3 rounded-xl font-bold transition-colors"
+              style={{ backgroundColor: '#2D4B8E' }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = '#243D75'}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = '#2D4B8E'}
             >
               Preview →
             </button>
@@ -443,9 +449,9 @@ export default function CreateListing() {
       {/* Step 2: Preview */}
       {step === 2 && (
         <div className="space-y-6">
-          <div className="bg-green-50 rounded-xl p-4 text-sm text-green-800">
-            <div className="font-bold mb-1">✅ Looks good! Here's how your listing will appear.</div>
-            <div className="text-green-700">Review the card and full detail below before posting.</div>
+          <div className="rounded-xl p-4 text-sm" style={{ backgroundColor: '#EEF2FF', color: '#2D4B8E' }}>
+            <div className="font-bold mb-1">✅ Looks good! Here&apos;s how your listing will appear.</div>
+            <div style={{ color: '#3A5BA8' }}>Review the card and full detail below before posting.</div>
           </div>
 
           {/* Card Preview */}
@@ -469,8 +475,8 @@ export default function CreateListing() {
                 <span className="text-xs px-3 py-1 rounded-full bg-amber-100 text-amber-800 font-medium">Open to offers</span>
               )}
             </div>
-            <div className="bg-green-50 rounded-xl p-3 text-sm space-y-1">
-              <div><span className="font-bold text-green-700">Have:</span> {form.iHave}</div>
+            <div className="rounded-xl p-3 text-sm space-y-1" style={{ backgroundColor: '#EEF2FF' }}>
+              <div><span className="font-bold" style={{ color: '#2D4B8E' }}>Have:</span> {form.iHave}</div>
               <div><span className="font-bold text-amber-600">Want:</span> {form.iWantText}</div>
             </div>
             <p className="text-sm text-gray-600 leading-relaxed">{form.description}</p>
@@ -498,7 +504,10 @@ export default function CreateListing() {
             <button
               onClick={handleSubmit}
               disabled={submitting}
-              className="flex-1 bg-green-800 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              className="flex-1 text-white py-3 rounded-xl font-bold transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              style={{ backgroundColor: '#2D4B8E' }}
+              onMouseEnter={e => !submitting && (e.currentTarget.style.backgroundColor = '#243D75')}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = '#2D4B8E'}
             >
               {submitting ? (
                 <>

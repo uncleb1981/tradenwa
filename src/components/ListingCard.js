@@ -50,9 +50,9 @@ export default function ListingCard({ listing, compact = false }) {
 
   return (
     <Link href={`/listings/${listing.id}`} className="group block">
-      <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow h-full flex flex-col">
+      <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:-translate-y-1 hover:shadow-xl transition-all duration-200 cursor-pointer h-full flex flex-col">
         {/* Photo */}
-        <div className="relative overflow-hidden bg-gray-100" style={{ paddingTop: '60%' }}>
+        <div className="relative overflow-hidden bg-gray-100 h-56">
           <img
             src={photo}
             alt={listing.title}
@@ -63,34 +63,27 @@ export default function ListingCard({ listing, compact = false }) {
             <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${CATEGORY_COLORS[listing.category] || 'bg-gray-100 text-gray-700'}`}>
               {listing.category}
             </span>
-            {listing.condition && (
+            {listing.condition && listing.category !== 'Services' && (
               <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${CONDITION_COLORS[listing.condition] || 'bg-gray-100 text-gray-700'}`}>
                 {listing.condition}
               </span>
             )}
           </div>
-          {listing.openToOffers && (
-            <div className="absolute top-2 right-2">
-              <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-amber-400 text-amber-900">
-                Open to offers
-              </span>
-            </div>
-          )}
         </div>
 
         {/* Body */}
         <div className="p-3 flex flex-col flex-1">
-          <h3 className="font-semibold text-gray-900 leading-tight mb-1 line-clamp-2 group-hover:text-green-800 transition-colors">
+          <h3 className="font-semibold text-gray-900 leading-tight mb-2 line-clamp-2 transition-colors" style={{ color: undefined }} onMouseEnter={() => {}} onMouseLeave={() => {}}>
             {listing.title}
           </h3>
 
-          <div className="text-xs text-gray-500 space-y-0.5 mb-2">
+          <div className="text-sm text-gray-500 space-y-0.5 mb-2">
             <div className="flex gap-1">
-              <span className="font-medium text-green-800">Have:</span>
+              <span className="font-bold" style={{ color: '#2D4B8E' }}>Have:</span>
               <span className="line-clamp-1">{listing.iHave}</span>
             </div>
             <div className="flex gap-1">
-              <span className="font-medium text-amber-600">Want:</span>
+              <span className="font-bold text-amber-600">Want:</span>
               <span className="line-clamp-1">{listing.iWantText}</span>
             </div>
           </div>
@@ -107,28 +100,16 @@ export default function ListingCard({ listing, compact = false }) {
             {/* Poster */}
             <div className="flex items-center gap-1.5">
               <Avatar name={listing.poster?.name || '?'} size="xs" />
-              <div>
-                <div className="flex items-center gap-1">
-                  <span className="text-xs text-gray-600 font-medium">{listing.poster?.name}</span>
-                  {verified && (
-                    <span className="text-xs text-green-700" title="Verified NWA">✓</span>
-                  )}
-                </div>
-                {listing.poster?.completedTrades > 0 && (
-                  <div className="text-xs text-gray-400">{listing.poster.completedTrades} trades</div>
+              <div className="flex items-center gap-1">
+                <span className="text-xs text-gray-600 font-medium">{listing.poster?.name}</span>
+                {verified && (
+                  <span className="text-xs font-semibold" style={{ color: '#2D4B8E' }} title="Verified NWA">✓</span>
                 )}
               </div>
             </div>
 
             {/* Meta */}
             <div className="text-right">
-              <div className="text-xs text-gray-400 flex items-center gap-1 justify-end">
-                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-                {listing.views}
-              </div>
               <div className={`text-xs ${days <= 5 ? 'text-red-500' : 'text-gray-400'}`}>
                 {days}d left
               </div>

@@ -42,7 +42,7 @@ export default function LoginPage() {
     <div className="min-h-[70vh] flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="text-4xl font-black text-green-800 mb-1">TradeNWA</div>
+          <div className="text-4xl font-black mb-1" style={{ color: '#2D4B8E' }}>TradeNWA</div>
           <div className="text-sm text-amber-500 font-medium">Swap Happens</div>
         </div>
 
@@ -62,7 +62,7 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-700"
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2" style={{ '--tw-ring-color': '#2D4B8E' }}
                   />
                 </div>
                 {phase === 'error' && errorMsg && (
@@ -70,7 +70,7 @@ export default function LoginPage() {
                 )}
                 <button
                   type="submit"
-                  className="w-full bg-green-800 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition-colors"
+                  className="w-full text-white py-3 rounded-xl font-bold transition-colors" style={{ backgroundColor: '#2D4B8E' }} onMouseEnter={e => e.currentTarget.style.backgroundColor='#243D75'} onMouseLeave={e => e.currentTarget.style.backgroundColor='#2D4B8E'}
                 >
                   Send magic link
                 </button>
@@ -83,7 +83,7 @@ export default function LoginPage() {
 
           {phase === 'sending' && (
             <div className="text-center py-4">
-              <div className="w-10 h-10 border-4 border-green-800 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+              <div className="w-10 h-10 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4" style={{ borderColor: '#2D4B8E', borderTopColor: 'transparent' }} />
               <div className="font-semibold text-gray-700">Sending your magic link...</div>
             </div>
           )}
@@ -100,7 +100,7 @@ export default function LoginPage() {
                 Didn't get it? Check your spam folder or{' '}
                 <button
                   onClick={() => setPhase('input')}
-                  className="text-green-700 underline"
+                  className="underline" style={{ color: '#2D4B8E' }}
                 >
                   try again
                 </button>.
@@ -110,7 +110,7 @@ export default function LoginPage() {
         </div>
 
         <div className="text-center mt-6">
-          <Link href="/" className="text-sm text-gray-400 hover:text-green-800 transition-colors">
+          <Link href="/" className="text-sm text-gray-400 transition-colors" onMouseEnter={e => e.currentTarget.style.color='#2D4B8E'} onMouseLeave={e => e.currentTarget.style.color=''}>
             ← Continue browsing without signing in
           </Link>
         </div>
