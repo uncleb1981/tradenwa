@@ -154,7 +154,9 @@ export default function CreateListing() {
           .from('listing-photos')
           .upload(filename, form.photo, { upsert: true });
 
-        if (!uploadErr) {
+        if (uploadErr) {
+          console.error('Photo upload error:', JSON.stringify(uploadErr));
+        } else {
           const { data: { publicUrl } } = supabase.storage
             .from('listing-photos')
             .getPublicUrl(filename);
