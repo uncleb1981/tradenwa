@@ -134,7 +134,12 @@ export function getDraft() {
 
 export function saveDraft(draft) {
   if (!isClient()) return;
-  localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  try {
+    const { photo, photoPreview, ...safeDraft } = draft;
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(safeDraft));
+  } catch {
+    // localStorage full — skip draft save
+  }
 }
 
 export function clearDraft() {
