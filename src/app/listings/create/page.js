@@ -107,10 +107,13 @@ export default function CreateListing() {
   function handlePhoto(e) {
     const file = e.target.files[0];
     if (!file) return;
-    update('photo', file);
     const reader = new FileReader();
     reader.onload = (ev) => {
-      update('photoPreview', ev.target.result);
+      setForm((prev) => {
+        const updated = { ...prev, photo: file, photoPreview: ev.target.result };
+        saveDraft(updated);
+        return updated;
+      });
     };
     reader.readAsDataURL(file);
   }
