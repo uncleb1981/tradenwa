@@ -67,11 +67,22 @@ export default function CreateListing() {
       if (!authUser) { router.push('/login'); return; }
       setUser(authUser);
 
-      const { data: prof } = await supabase
+      let { data: prof } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', authUser.id)
         .single();
+
+      if (!prof) {
+        const emailName = authUser.email?.split('@')[0] || 'Trader';
+        const name = emailName.charAt(0).toUpperCase() + emailName.slice(1);
+        const { data: newProf } = await supabase
+          .from('profiles')
+          .insert({ id: authUser.id, name, city: 'Bentonville', zip: '72712', completed_trades: 0 })
+          .select()
+          .single();
+        prof = newProf;
+      }
       setProfile(prof);
 
       const draft = getDraft();
@@ -172,7 +183,10 @@ export default function CreateListing() {
         .select('id')
         .single();
 
-      if (insertErr) throw insertErr;
+      if (insertErr) {
+        console.error('Insert error:', JSON.stringify(insertErr));
+        throw insertErr;
+      }
 
       clearDraft();
       router.push(`/listings/${inserted.id}`);
