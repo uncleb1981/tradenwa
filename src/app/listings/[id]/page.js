@@ -212,6 +212,20 @@ export default function ListingDetail() {
     fetchListing();
   }, [id]);
 
+  async function handleMarkTraded() {
+    if (!window.confirm('Mark this listing as traded? It will be removed from the feed.')) return;
+    const supabase = getSupabase();
+    await supabase.from('listings').update({ status: 'traded' }).eq('id', id);
+    router.push('/profile');
+  }
+
+  async function handleDelete() {
+    if (!window.confirm('Delete this listing? This cannot be undone.')) return;
+    const supabase = getSupabase();
+    await supabase.from('listings').delete().eq('id', id);
+    router.push('/profile');
+  }
+
   function handleShare() {
     navigator.clipboard.writeText(window.location.href).then(() => {
       setCopied(true);
@@ -311,6 +325,29 @@ export default function ListingDetail() {
             </div>
 
             <h1 className="text-2xl font-black text-gray-900 mb-1">{listing.title}</h1>
+
+            {user?.id === listing.poster?.id && (
+              <div className="flex gap-2 flex-wrap mb-4">
+                <Link
+                  href={`/listings/${id}/edit`}
+                  className="text-xs px-3 py-1.5 rounded-full border-2 border-green-700 text-green-800 font-semibold hover:bg-green-50 transition-colors"
+                >
+                  Edit Listing
+                </Link>
+                <button
+                  onClick={handleMarkTraded}
+                  className="text-xs px-3 py-1.5 rounded-full border-2 border-amber-500 text-amber-700 font-semibold hover:bg-amber-50 transition-colors"
+                >
+                  Mark as Traded
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="text-xs px-3 py-1.5 rounded-full border-2 border-red-400 text-red-600 font-semibold hover:bg-red-50 transition-colors"
+                >
+                  Delete
+                </button>
+              </div>
+            )}
 
             <div className="flex items-center gap-3 text-sm text-gray-400 mb-4">
               <span className="flex items-center gap-1">

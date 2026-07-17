@@ -214,7 +214,36 @@ export default function ProfilePage() {
           ) : (
             <div className="grid sm:grid-cols-2 gap-4">
               {myListings.map((l) => (
-                <ListingCard key={l.id} listing={l} />
+                <div key={l.id}>
+                  <ListingCard listing={l} />
+                  <div className="flex items-center gap-3 mt-1 px-1 text-xs font-medium">
+                    <Link href={`/listings/${l.id}/edit`} className="text-green-700 hover:underline">Edit</Link>
+                    <span className="text-gray-300">|</span>
+                    <button
+                      className="text-amber-600 hover:underline"
+                      onClick={async () => {
+                        if (!window.confirm('Mark this listing as traded? It will be removed from the feed.')) return;
+                        const supabase = getSupabase();
+                        await supabase.from('listings').update({ status: 'traded' }).eq('id', l.id);
+                        setMyListings((prev) => prev.filter((x) => x.id !== l.id));
+                      }}
+                    >
+                      Mark Traded
+                    </button>
+                    <span className="text-gray-300">|</span>
+                    <button
+                      className="text-red-500 hover:underline"
+                      onClick={async () => {
+                        if (!window.confirm('Delete this listing? This cannot be undone.')) return;
+                        const supabase = getSupabase();
+                        await supabase.from('listings').delete().eq('id', l.id);
+                        setMyListings((prev) => prev.filter((x) => x.id !== l.id));
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
               ))}
             </div>
           )}
