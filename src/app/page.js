@@ -93,8 +93,8 @@ function HomeContent() {
     {/* Hero */}
     {showHero && (
       <div className="w-full py-14 px-4 text-white text-center" style={{ backgroundColor: '#2D4B8E' }}>
-        <h1 className="text-4xl sm:text-5xl font-black mb-3 leading-tight">Trade what you have.<br />Get what you need.</h1>
-        <p className="text-lg mb-8 opacity-90">NWA&rsquo;s free marketplace for swapping goods &amp; services — no cash required.</p>
+        <h1 className="text-4xl sm:text-5xl font-black mb-3 leading-tight">More than Marketplace.</h1>
+        <p className="text-lg mb-8 opacity-90">Swap goods, services, and skills with your neighbors in NWA.</p>
         <div className="flex flex-wrap gap-3 justify-center">
           <Link href="/listings/create" className="bg-white font-bold px-8 py-3 rounded-full text-base transition-colors hover:bg-gray-100" style={{ color: '#2D4B8E' }}>
             Post a Trade
