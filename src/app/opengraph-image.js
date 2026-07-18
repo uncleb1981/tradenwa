@@ -20,24 +20,26 @@ export default function OGImage() {
       >
         <div
           style={{
-            fontSize: '140px',
+            fontSize: '180px',
             fontWeight: '900',
             color: 'white',
-            letterSpacing: '-4px',
+            letterSpacing: '-6px',
             lineHeight: 1,
-            marginBottom: '24px',
+            marginBottom: '28px',
           }}
         >
           TradeNWA
         </div>
         <div
           style={{
-            fontSize: '64px',
-            fontWeight: '600',
-            color: '#EAB308',
+            fontSize: '52px',
+            fontWeight: '500',
+            color: 'rgba(255,255,255,0.75)',
+            letterSpacing: '2px',
+            textTransform: 'uppercase',
           }}
         >
-          Swap Happens
+          NWA&apos;s Local Barter Marketplace
         </div>
       </div>
     ),
