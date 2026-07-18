@@ -107,7 +107,7 @@ export default function ProfilePage() {
             <h2 className="text-xl font-black text-gray-900 mb-1">{profile.name}</h2>
             {verified && (
               <div className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-full font-semibold mb-2" style={{ backgroundColor: '#EEF2FF', color: '#2D4B8E' }}>
-                ✓ Verified NWA
+                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>Verified NWA
               </div>
             )}
             <div className="text-sm text-gray-500 mb-1">{profile.city}</div>
@@ -178,12 +178,12 @@ export default function ProfilePage() {
             )}
 
             {saved && (
-              <div className="mt-2 text-xs font-semibold text-center" style={{ color: '#2D4B8E' }}>✓ Profile saved!</div>
+              <div className="mt-2 text-xs font-semibold text-center" style={{ color: '#2D4B8E' }}>Profile saved!</div>
             )}
 
             {!verified && (
               <div className="mt-4 bg-gray-50 rounded-xl p-3 text-xs text-gray-500">
-                <div className="font-semibold mb-0.5">Get Verified NWA ✓</div>
+                <div className="font-semibold mb-0.5">Get Verified NWA</div>
                 Update your zip code to one starting with 727 to show the Verified NWA badge.
               </div>
             )}
@@ -204,7 +204,11 @@ export default function ProfilePage() {
 
           {myListings.length === 0 ? (
             <div className="text-center py-16 bg-white rounded-2xl border border-gray-100">
-              <div className="text-3xl mb-3">📦</div>
+              <div className="mb-3 flex justify-center">
+                <svg className="w-10 h-10 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10" />
+                </svg>
+              </div>
               <div className="font-semibold text-gray-600 mb-1">No listings yet</div>
               <div className="text-sm text-gray-400 mb-4">Post your first trade to get started!</div>
               <Link href="/listings/create" className="text-white px-6 py-2 rounded-full text-sm font-semibold transition-colors" style={{ backgroundColor: '#2D4B8E' }}>

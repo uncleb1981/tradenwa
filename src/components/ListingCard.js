@@ -50,7 +50,7 @@ export default function ListingCard({ listing, compact = false }) {
 
   return (
     <Link href={`/listings/${listing.id}`} className="group block">
-      <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:-translate-y-1 hover:shadow-xl transition-all duration-200 cursor-pointer h-full flex flex-col">
+      <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md border border-gray-100 hover:-translate-y-1 transition-all duration-200 cursor-pointer h-full flex flex-col">
         {/* Photo */}
         <div className="relative overflow-hidden bg-gray-100 h-56">
           <img
@@ -60,11 +60,11 @@ export default function ListingCard({ listing, compact = false }) {
             onError={(e) => { e.target.src = PLACEHOLDER_IMAGES[listing.category] || PLACEHOLDER_IMAGES.Other; }}
           />
           <div className="absolute top-2 left-2 flex gap-1 flex-wrap">
-            <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${CATEGORY_COLORS[listing.category] || 'bg-gray-100 text-gray-700'}`}>
+            <span className="bg-gray-100 text-gray-600 text-xs px-2.5 py-0.5 rounded-full font-medium">
               {listing.category}
             </span>
             {listing.condition && listing.category !== 'Services' && (
-              <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${CONDITION_COLORS[listing.condition] || 'bg-gray-100 text-gray-700'}`}>
+              <span className="bg-gray-100 text-gray-600 text-xs px-2.5 py-0.5 rounded-full font-medium">
                 {listing.condition}
               </span>
             )}
@@ -79,11 +79,11 @@ export default function ListingCard({ listing, compact = false }) {
 
           <div className="text-sm text-gray-500 space-y-0.5 mb-2">
             <div className="flex gap-1">
-              <span className="font-bold" style={{ color: '#2D4B8E' }}>Have:</span>
+              <span className="text-xs font-semibold" style={{ color: '#2D4B8E' }}>Have:</span>
               <span className="line-clamp-1">{listing.iHave}</span>
             </div>
             <div className="flex gap-1">
-              <span className="font-bold text-amber-600">Want:</span>
+              <span className="text-xs font-semibold text-amber-600">Want:</span>
               <span className="line-clamp-1">{listing.iWantText}</span>
             </div>
           </div>

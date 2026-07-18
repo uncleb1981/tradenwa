@@ -92,7 +92,11 @@ export default function InboxPage() {
 
       {convs.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-2xl border border-gray-100">
-          <div className="text-3xl mb-3">💬</div>
+          <div className="mb-3 flex justify-center">
+            <svg className="w-10 h-10 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+          </div>
           <div className="font-semibold text-gray-600 mb-1">No conversations yet</div>
           <div className="text-sm text-gray-400 mb-4">Propose a trade on any listing to start a conversation.</div>
           <Link href="/" className="text-white px-6 py-2 rounded-full text-sm font-semibold transition-colors" style={{ backgroundColor: '#2D4B8E' }}>

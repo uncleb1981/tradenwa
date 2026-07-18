@@ -26,11 +26,12 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col" style={{ backgroundColor: '#F0F4FF' }}>
         <Navbar />
         <main className="flex-1">{children}</main>
-        <footer className="bg-white border-t border-gray-100 mt-12 py-8">
+        <footer className="bg-white border-t border-gray-100 mt-12 py-10">
           <div className="max-w-6xl mx-auto px-4 text-center">
             <div className="font-black text-lg mb-1" style={{ color: '#2D4B8E' }}>TradeNWA</div>
             <div className="text-sm text-gray-400">Swap Happens</div>
-            <div className="text-xs text-gray-300 mt-2">© 2025 TradeNWA</div>
+            <div className="text-xs text-gray-400 mt-1">Local barter for Northwest Arkansas</div>
+            <div className="text-xs text-gray-300 mt-3">© 2025 TradeNWA</div>
           </div>
         </footer>
       </body>

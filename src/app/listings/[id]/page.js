@@ -90,7 +90,11 @@ function ProposeModal({ listing, user, onClose }) {
       >
         {sent ? (
           <div className="text-center py-6">
-            <div className="text-4xl mb-3">✅</div>
+            <div className="mb-3 flex justify-center">
+              <svg className="w-10 h-10 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
             <h3 className="text-lg font-black text-gray-900">Proposal sent!</h3>
             <p className="text-sm text-gray-500 mt-1">Heading to your conversation...</p>
           </div>
@@ -253,7 +257,11 @@ export default function ListingDetail() {
 
   if (notFound) return (
     <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-      <div className="text-4xl mb-3">🔍</div>
+      <div className="mb-3 flex justify-center">
+        <svg className="w-10 h-10 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-4.35-4.35M17 11A6 6 0 111 11a6 6 0 0116 0z" />
+        </svg>
+      </div>
       <h2 className="text-xl font-black text-gray-900 mb-2">Listing not found</h2>
       <p className="text-sm text-gray-500 mb-6">This listing may have expired or been removed.</p>
       <Link href="/" className="inline-block text-white px-6 py-2 rounded-full text-sm font-semibold transition-colors" style={{ backgroundColor: '#2D4B8E' }}>
@@ -401,7 +409,7 @@ export default function ListingDetail() {
                   <span className="font-bold text-gray-900">{listing.poster?.name}</span>
                   {verified && (
                     <span className="text-xs px-2 py-0.5 rounded-full font-medium flex items-center gap-0.5" style={{ backgroundColor: '#EEF2FF', color: '#2D4B8E' }}>
-                      ✓ Verified NWA
+                      <svg className="w-3 h-3 inline mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>Verified NWA
                     </span>
                   )}
                 </div>
@@ -423,7 +431,7 @@ export default function ListingDetail() {
                   onClick={handlePropose}
                   className="w-full text-white py-3 rounded-xl font-bold text-base transition-colors" style={{ backgroundColor: '#2D4B8E' }} onMouseEnter={e => e.currentTarget.style.backgroundColor='#243D75'} onMouseLeave={e => e.currentTarget.style.backgroundColor='#2D4B8E'}
                 >
-                  🤝 Propose a Trade
+                  Propose a Trade
                 </button>
               ) : (
                 <div className="w-full bg-gray-100 text-gray-500 py-3 rounded-xl font-medium text-base text-center">
@@ -436,7 +444,7 @@ export default function ListingDetail() {
                   onClick={handleShare}
                   className="flex-1 flex items-center justify-center gap-2 border border-gray-200 text-gray-600 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors"
                 >
-                  {copied ? '✓ Copied!' : (
+                  {copied ? 'Copied!' : (
                     <>
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -449,7 +457,7 @@ export default function ListingDetail() {
                   onClick={() => { setReportSent(true); setTimeout(() => setReportSent(false), 3000); }}
                   className="flex-1 flex items-center justify-center gap-2 border border-gray-200 text-gray-400 py-2.5 rounded-xl text-sm font-medium hover:bg-red-50 hover:text-red-500 hover:border-red-200 transition-colors"
                 >
-                  {reportSent ? '✓ Reported' : (
+                  {reportSent ? 'Reported' : (
                     <>
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />

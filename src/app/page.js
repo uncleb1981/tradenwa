@@ -92,27 +92,30 @@ function HomeContent() {
 
     {/* Hero */}
     {showHero && (
-      <div className="w-full py-14 px-4 text-white text-center" style={{ backgroundColor: '#2D4B8E' }}>
-        <h1 className="text-4xl sm:text-5xl font-black mb-3 leading-tight">More than Marketplace.</h1>
-        <p className="text-lg mb-8 opacity-90">Swap goods, services, and skills with your neighbors in NWA.</p>
-        <div className="flex flex-wrap gap-3 justify-center">
-          <Link href="/listings/create" className="bg-white font-bold px-8 py-3 rounded-full text-base transition-colors hover:bg-gray-100" style={{ color: '#2D4B8E' }}>
-            Post a Trade
-          </Link>
-          <a href="#browse" className="border-2 border-white text-white font-bold px-8 py-3 rounded-full text-base transition-colors hover:bg-white/10">
-            Browse
-          </a>
+      <div className="relative w-full py-14 px-4 text-white text-center overflow-hidden" style={{ backgroundColor: '#2D4B8E' }}>
+        <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'repeating-linear-gradient(45deg, white 0, white 1px, transparent 0, transparent 50%)', backgroundSize: '20px 20px'}} />
+        <div className="relative z-10">
+          <h1 className="text-4xl sm:text-5xl font-black mb-3 leading-tight">More than Marketplace.</h1>
+          <p className="text-lg mb-8 opacity-90">Swap goods, services, and skills with your neighbors in NWA.</p>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <Link href="/listings/create" className="bg-white font-bold px-8 py-3 rounded-full text-base transition-colors hover:bg-gray-100" style={{ color: '#2D4B8E' }}>
+              Post a Trade
+            </Link>
+            <a href="#browse" className="border-2 border-white text-white font-bold px-8 py-3 rounded-full text-base transition-colors hover:bg-white/10">
+              Browse
+            </a>
+          </div>
         </div>
       </div>
     )}
 
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
+    <div className="max-w-6xl mx-auto px-4 py-6 space-y-12">
 
       {/* Just Added */}
       {!loading && justAdded.length > 0 && (
         <section>
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-black text-gray-900">Just Added 🌱</h2>
+            <h2 className="text-xl font-black tracking-tight text-gray-900 flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>Just Added</h2>
             <span className="text-xs text-gray-400">Last 48 hours</span>
           </div>
           <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
@@ -128,7 +131,7 @@ function HomeContent() {
       {/* Trending */}
       <section>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-black text-gray-900">🔥 Trending in {trendingCity}</h2>
+          <h2 className="text-xl font-black tracking-tight text-gray-900">Trending in {trendingCity}</h2>
         </div>
         {loading ? (
           <div className="flex gap-4">
@@ -186,7 +189,14 @@ function HomeContent() {
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-16 text-gray-400">
-            <div className="text-4xl mb-3">🌾</div>
+            <div className="mb-4">
+              <svg className="w-12 h-12 mx-auto text-gray-300" fill="none" viewBox="0 0 48 48" stroke="currentColor">
+                <rect x="4" y="4" width="16" height="16" rx="3" strokeWidth="2" />
+                <rect x="28" y="4" width="16" height="16" rx="3" strokeWidth="2" />
+                <rect x="4" y="28" width="16" height="16" rx="3" strokeWidth="2" />
+                <rect x="28" y="28" width="16" height="16" rx="3" strokeWidth="2" />
+              </svg>
+            </div>
             <div className="font-semibold text-gray-600 mb-1">
               {listings.length === 0 ? 'No listings yet — be the first to post a trade!' : 'No listings found'}
             </div>
@@ -200,7 +210,7 @@ function HomeContent() {
         ) : (
           <>
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-lg font-black text-gray-900">Browse All</h2>
+              <h2 className="text-xl font-black tracking-tight text-gray-900">Browse All</h2>
               <span className="text-sm text-gray-400">{filtered.length} listings</span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -212,9 +222,10 @@ function HomeContent() {
         )}
       </section>
 
+      <div className="border-t border-gray-100 my-2" />
+
       {/* CTA */}
       <div className="bg-white rounded-2xl border border-gray-100 p-6 text-center shadow-sm">
-        <div className="text-2xl mb-2">🤝</div>
         <h3 className="font-black text-gray-900 text-lg mb-1">Have something to offer?</h3>
         <p className="text-sm text-gray-500 mb-4">List a service, good, or skill — find someone in NWA who has what you need.</p>
         <Link href="/listings/create" className="inline-block text-white px-8 py-2.5 rounded-full font-semibold transition-colors" style={{ backgroundColor: '#2D4B8E' }}>

@@ -38,7 +38,9 @@ function StepIndicator({ step }) {
               boxShadow: i === step ? '0 0 0 3px #C7D2FE' : 'none',
             }}
           >
-            {i < step ? '✓' : i + 1}
+            {i < step ? (
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+            ) : i + 1}
           </div>
           <span className="text-sm font-medium hidden sm:block" style={{ color: i === step ? '#2D4B8E' : '#9CA3AF' }}>
             {label}
@@ -450,7 +452,7 @@ export default function CreateListing() {
       {step === 2 && (
         <div className="space-y-6">
           <div className="rounded-xl p-4 text-sm" style={{ backgroundColor: '#EEF2FF', color: '#2D4B8E' }}>
-            <div className="font-bold mb-1">✅ Looks good! Here&apos;s how your listing will appear.</div>
+            <div className="font-bold mb-1">Looks good! Here&apos;s how your listing will appear.</div>
             <div style={{ color: '#3A5BA8' }}>Review the card and full detail below before posting.</div>
           </div>
 
@@ -514,7 +516,7 @@ export default function CreateListing() {
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   Posting...
                 </>
-              ) : '🌱 Post Listing'}
+              ) : 'Post Listing'}
             </button>
           </div>
         </div>
