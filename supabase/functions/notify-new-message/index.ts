@@ -115,7 +115,7 @@ Deno.serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'TradeNWA <noreply@tradenwa.com>',
+        from: 'TradeNWA <onboarding@resend.dev>',
         to: recipientUser.email,
         subject: `${senderName} sent you a trade offer on TradeNWA`,
         html: emailHtml,

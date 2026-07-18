@@ -135,11 +135,37 @@ export default function ChatPage() {
     if (!listing?.id) return;
     try {
       const supabase = getSupabase();
+
+      // Get all conversations for this listing
+      const { data: convs } = await supabase
+        .from('conversations')
+        .select('id')
+        .eq('listing_id', listing.id);
+
+      const convIds = (convs || []).map((c) => c.id);
+
+      // Delete all messages in those conversations
+      if (convIds.length > 0) {
+        await supabase
+          .from('messages')
+          .delete()
+          .in('conversation_id', convIds);
+
+        // Delete all conversations
+        await supabase
+          .from('conversations')
+          .delete()
+          .in('id', convIds);
+      }
+
+      // Delete the listing itself
       await supabase
         .from('listings')
-        .update({ status: 'traded' })
+        .delete()
         .eq('id', listing.id);
+
       setRemoved(true);
+      setTimeout(() => router.push('/'), 1500);
     } catch {
       // ignore
     }
