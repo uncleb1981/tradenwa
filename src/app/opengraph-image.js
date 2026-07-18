@@ -11,35 +11,54 @@ export default function OGImage() {
         style={{
           width: '1200px',
           height: '630px',
-          backgroundColor: '#2D4B8E',
+          background: 'linear-gradient(135deg, #1a2f5e 0%, #2D4B8E 50%, #1e3a70 100%)',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
+          alignItems: 'flex-start',
+          justifyContent: 'space-between',
+          padding: '72px 80px',
+          position: 'relative',
         }}
       >
-        <div
-          style={{
-            fontSize: '180px',
-            fontWeight: '900',
-            color: 'white',
-            letterSpacing: '-6px',
-            lineHeight: 1,
-            marginBottom: '28px',
-          }}
-        >
-          TradeNWA
+        {/* Top accent line */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div style={{ width: '48px', height: '4px', backgroundColor: '#EAB308', borderRadius: '2px' }} />
+          <div style={{ width: '24px', height: '4px', backgroundColor: 'rgba(255,255,255,0.3)', borderRadius: '2px' }} />
         </div>
-        <div
-          style={{
-            fontSize: '52px',
-            fontWeight: '500',
-            color: 'rgba(255,255,255,0.75)',
-            letterSpacing: '2px',
-            textTransform: 'uppercase',
-          }}
-        >
-          NWA&apos;s Local Barter Marketplace
+
+        {/* Main wordmark */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
+          <div
+            style={{
+              fontSize: '160px',
+              fontWeight: '900',
+              color: 'white',
+              letterSpacing: '-6px',
+              lineHeight: 0.9,
+            }}
+          >
+            Trade
+          </div>
+          <div
+            style={{
+              fontSize: '160px',
+              fontWeight: '900',
+              color: '#EAB308',
+              letterSpacing: '-6px',
+              lineHeight: 0.9,
+            }}
+          >
+            NWA
+          </div>
+        </div>
+
+        {/* Bottom row */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+          <div style={{ width: '120px', height: '2px', backgroundColor: 'rgba(255,255,255,0.2)' }} />
+          <div style={{ fontSize: '22px', color: 'rgba(255,255,255,0.4)', letterSpacing: '6px', textTransform: 'uppercase', fontWeight: '500' }}>
+            tradenwa.com
+          </div>
+          <div style={{ width: '120px', height: '2px', backgroundColor: 'rgba(255,255,255,0.2)' }} />
         </div>
       </div>
     ),
