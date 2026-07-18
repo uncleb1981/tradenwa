@@ -9,14 +9,12 @@ export const metadata = {
     description: "Swap goods, services, and skills with your NWA neighbors. No cash, no fees.",
     url: "https://tradenwa.com",
     siteName: "TradeNWA",
-    images: [{ url: "https://tradenwa.com/og-image.svg", width: 1200, height: 630 }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "TradeNWA – Swap Happens",
     description: "Swap goods, services, and skills with your NWA neighbors. No cash, no fees.",
-    images: ["https://tradenwa.com/og-image.svg"],
   },
 };
 
