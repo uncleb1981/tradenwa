@@ -4,6 +4,20 @@ import Navbar from "@/components/Navbar";
 export const metadata = {
   title: "TradeNWA – Swap Happens",
   description: "Northwest Arkansas local barter marketplace. Trade skills, goods, and services with your neighbors.",
+  openGraph: {
+    title: "TradeNWA – Swap Happens",
+    description: "Swap goods, services, and skills with your NWA neighbors. No cash, no fees.",
+    url: "https://tradenwa.com",
+    siteName: "TradeNWA",
+    images: [{ url: "https://tradenwa.com/og-image.svg", width: 1200, height: 630 }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TradeNWA – Swap Happens",
+    description: "Swap goods, services, and skills with your NWA neighbors. No cash, no fees.",
+    images: ["https://tradenwa.com/og-image.svg"],
+  },
 };
 
 export default function RootLayout({ children }) {
