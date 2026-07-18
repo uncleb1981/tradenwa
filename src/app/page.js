@@ -40,7 +40,7 @@ function HomeContent() {
         const { data, error } = await supabase
           .from('listings')
           .select('*, profiles(name, city, zip, completed_trades)')
-          .eq('status', 'active')
+          .in('status', ['active'])
           .order('created_at', { ascending: false });
 
         if (error || !data || data.length === 0) {

@@ -16,7 +16,8 @@ export default function ChatPage() {
   const [otherUser, setOtherUser] = useState(null);
   const [listing, setListing] = useState(null);
   const [text, setText] = useState('');
-  const [tradeDone, setTradeDone] = useState(false);
+  const [listingOwnerId, setListingOwnerId] = useState(null);
+  const [removed, setRemoved] = useState(false);
   const [sending, setSending] = useState(false);
   const [loading, setLoading] = useState(true);
   const bottomRef = useRef();
@@ -43,11 +44,13 @@ export default function ChatPage() {
       if (error || !convRow) { router.push('/inbox'); return; }
 
       setConv(convRow);
-      setTradeDone(convRow.status === 'completed');
+      setRemoved(convRow.listings?.status === 'traded');
 
       const isUser1 = convRow.user_1_id === authUser.id;
       setOtherUser(isUser1 ? convRow.user2 : convRow.user1);
-      setListing(convRow.listings ? adaptListing(convRow.listings) : null);
+      const adapted = convRow.listings ? adaptListing(convRow.listings) : null;
+      setListing(adapted);
+      setListingOwnerId(convRow.listings?.user_id || null);
 
       // Fetch messages
       const { data: msgs } = await supabase
@@ -128,32 +131,15 @@ export default function ChatPage() {
     }
   }
 
-  async function handleMarkComplete() {
+  async function handleRemoveListing() {
+    if (!listing?.id) return;
     try {
       const supabase = getSupabase();
       await supabase
-        .from('conversations')
-        .update({ status: 'completed' })
-        .eq('id', id);
-
-      // Increment completed_trades for both users
-      if (conv) {
-        for (const userId of [conv.user_1_id, conv.user_2_id]) {
-          const { data: prof } = await supabase
-            .from('profiles')
-            .select('completed_trades')
-            .eq('id', userId)
-            .single();
-          if (prof) {
-            await supabase
-              .from('profiles')
-              .update({ completed_trades: (prof.completed_trades || 0) + 1 })
-              .eq('id', userId);
-          }
-        }
-      }
-
-      setTradeDone(true);
+        .from('listings')
+        .update({ status: 'traded' })
+        .eq('id', listing.id);
+      setRemoved(true);
     } catch {
       // ignore
     }
@@ -236,21 +222,20 @@ export default function ChatPage() {
         <div ref={bottomRef} />
       </div>
 
-      {/* Mark complete */}
-      {!tradeDone ? (
-        <button
-          onClick={handleMarkComplete}
-          className="mb-3 w-full border-2 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-2" style={{ borderColor: '#C7D2FE', color: '#2D4B8E' }}
-        >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          Mark Trade Complete
-        </button>
-      ) : (
-        <div className="mb-3 w-full border py-2 rounded-xl text-sm font-semibold text-center" style={{ backgroundColor: '#EEF2FF', borderColor: '#C7D2FE', color: '#2D4B8E' }}>
-          ✅ Trade marked complete!
-        </div>
+      {/* Remove listing — only visible to the listing owner */}
+      {listing && user && listingOwnerId === user.id && (
+        removed ? (
+          <div className="mb-3 w-full border py-2 rounded-xl text-sm font-semibold text-center" style={{ backgroundColor: '#EEF2FF', borderColor: '#C7D2FE', color: '#2D4B8E' }}>
+            Item removed from listings
+          </div>
+        ) : (
+          <button
+            onClick={handleRemoveListing}
+            className="mb-3 w-full border border-gray-200 py-2 rounded-xl text-sm font-semibold text-gray-500 hover:bg-gray-50 transition-colors"
+          >
+            Remove item if traded
+          </button>
+        )
       )}
 
       {/* Input */}
