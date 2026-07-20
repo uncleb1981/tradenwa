@@ -146,6 +146,18 @@ export default function ChatPage() {
     }
   }
 
+  async function handleDeleteConversation() {
+    if (!window.confirm('Delete this conversation? This cannot be undone.')) return;
+    try {
+      const supabase = getSupabase();
+      await supabase.from('messages').delete().eq('conversation_id', id);
+      await supabase.from('conversations').delete().eq('id', id);
+      router.push('/inbox');
+    } catch {
+      // ignore
+    }
+  }
+
   async function handleRemoveListing() {
     if (!listing?.id) return;
     try {
@@ -278,6 +290,14 @@ export default function ChatPage() {
           </button>
         )
       )}
+
+      {/* Delete conversation */}
+      <button
+        onClick={handleDeleteConversation}
+        className="mb-3 w-full border border-gray-100 py-2 rounded-xl text-xs font-medium text-gray-300 hover:text-red-400 hover:border-red-100 transition-colors"
+      >
+        Delete conversation
+      </button>
 
       {/* Input */}
       <form onSubmit={handleSend} className="flex gap-2">

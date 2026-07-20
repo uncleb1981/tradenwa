@@ -95,8 +95,13 @@ function HomeContent() {
       <div className="relative w-full py-14 px-4 text-white text-center overflow-hidden" style={{ backgroundColor: '#2D4B8E' }}>
         <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'repeating-linear-gradient(45deg, white 0, white 1px, transparent 0, transparent 50%)', backgroundSize: '20px 20px'}} />
         <div className="relative z-10">
-          <h1 className="text-4xl sm:text-5xl font-black mb-3 leading-tight">More than Marketplace.</h1>
-          <p className="text-lg mb-8 opacity-90">Swap goods, services, and skills with your neighbors in NWA.</p>
+          <h1 className="text-4xl sm:text-5xl font-black mb-3 leading-tight">NWA's Everything Marketplace</h1>
+          <div className="flex flex-wrap justify-center gap-4 text-lg mb-4 opacity-90">
+            <span>· Goods</span>
+            <span>· Services</span>
+            <span>· Skills</span>
+          </div>
+          <p className="text-base mb-8 opacity-75">Trade what you have or pay cash — your call.</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link href="/listings/create" className="bg-white font-bold px-8 py-3 rounded-full text-base transition-colors hover:bg-gray-100" style={{ color: '#2D4B8E' }}>
               Post a Trade
