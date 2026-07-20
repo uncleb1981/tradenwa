@@ -334,6 +334,9 @@ export default function ListingDetail() {
           <div>
             {/* Badges */}
             <div className="flex flex-wrap gap-2 mb-3">
+              {listing.isDemo && (
+                <span className="text-xs px-3 py-1 rounded-full bg-amber-400 text-amber-950 font-bold">Demo</span>
+              )}
               <span className="text-xs px-3 py-1 rounded-full bg-purple-100 text-purple-800 font-medium">{listing.category}</span>
               {listing.condition && (
                 <span className={`text-xs px-3 py-1 rounded-full font-medium ${CONDITION_COLORS[listing.condition] || 'bg-gray-100 text-gray-700'}`}>

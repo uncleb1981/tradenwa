@@ -36,6 +36,7 @@ export function adaptListing(row) {
     expiresAt: row.expires_at,
     photo: row.photo_url,
     status: row.status,
+    isDemo: row.is_demo || false,
     poster: row.profiles
       ? {
           id: row.user_id,

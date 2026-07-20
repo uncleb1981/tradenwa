@@ -46,6 +46,13 @@ export default function ChatPage() {
       setConv(convRow);
       setRemoved(convRow.listings?.status === 'traded');
 
+      // Mark current user's unread flag as false
+      const isUser1 = convRow.user_1_id === authUser.id;
+      await supabase
+        .from('conversations')
+        .update(isUser1 ? { user_1_unread: false } : { user_2_unread: false })
+        .eq('id', id);
+
       const isUser1 = convRow.user_1_id === authUser.id;
       setOtherUser(isUser1 ? convRow.user2 : convRow.user1);
       const adapted = convRow.listings ? adaptListing(convRow.listings) : null;
@@ -123,6 +130,14 @@ export default function ChatPage() {
         sender_id: user.id,
         message: text.trim(),
       });
+
+      // Mark the other person as unread
+      const isUser1 = conv?.user_1_id === user.id;
+      await supabase
+        .from('conversations')
+        .update(isUser1 ? { user_2_unread: true } : { user_1_unread: true })
+        .eq('id', id);
+
       setText('');
     } catch {
       // ignore

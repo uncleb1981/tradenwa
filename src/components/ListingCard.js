@@ -69,6 +69,13 @@ export default function ListingCard({ listing, compact = false }) {
               </span>
             )}
           </div>
+          {listing.isDemo && (
+            <div className="absolute top-2 right-2">
+              <span className="bg-amber-400 text-amber-950 text-xs px-2.5 py-0.5 rounded-full font-bold shadow-sm">
+                Demo
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Body */}

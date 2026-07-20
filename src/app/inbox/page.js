@@ -24,7 +24,7 @@ export default function InboxPage() {
       const { data: rows } = await supabase
         .from('conversations')
         .select(`
-          id, status, created_at, listing_id,
+          id, status, created_at, listing_id, user_1_unread, user_2_unread,
           listings(*, profiles(name, city, zip, completed_trades)),
           user1:profiles!conversations_user_1_id_fkey(id, name, city, completed_trades),
           user2:profiles!conversations_user_2_id_fkey(id, name, city, completed_trades),
@@ -58,6 +58,7 @@ export default function InboxPage() {
         const isUser1 = row.user_1_id === authUser.id;
         const otherProfile = isUser1 ? row.user2 : row.user1;
         const lastMsg = lastMsgByConv[row.id];
+        const unread = isUser1 ? row.user_1_unread : row.user_2_unread;
         return {
           id: row.id,
           status: row.status,
@@ -65,6 +66,7 @@ export default function InboxPage() {
           otherUser: otherProfile,
           lastMessage: lastMsg || null,
           lastMessageAt: lastMsg?.created_at || row.created_at,
+          unread: !!unread,
         };
       });
 
@@ -107,15 +109,18 @@ export default function InboxPage() {
         <div className="space-y-2">
           {convs.map((conv) => (
             <Link key={conv.id} href={`/inbox/${conv.id}`}>
-              <div className="bg-white rounded-2xl border border-gray-100 p-4 hover:shadow-sm transition-shadow flex items-start gap-3">
-                <Avatar name={conv.otherUser?.name || '?'} size="md" />
+              <div className={`rounded-2xl border p-4 hover:shadow-sm transition-shadow flex items-start gap-3 ${conv.unread ? 'bg-blue-50 border-blue-100' : 'bg-white border-gray-100'}`}>
+                <div className="relative">
+                  <Avatar name={conv.otherUser?.name || '?'} size="md" />
+                  {conv.unread && <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-red-500 border-2 border-white" />}
+                </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
-                    <div className="font-bold text-gray-900 truncate">{conv.otherUser?.name || 'Unknown'}</div>
+                    <div className={`truncate ${conv.unread ? 'font-black text-gray-900' : 'font-bold text-gray-900'}`}>{conv.otherUser?.name || 'Unknown'}</div>
                     <div className="text-xs text-gray-400 flex-shrink-0">{timeAgo(conv.lastMessageAt)}</div>
                   </div>
                   <div className="text-xs font-medium mb-0.5 truncate" style={{ color: '#2D4B8E' }}>{conv.listing?.title}</div>
-                  <div className="text-sm text-gray-500 truncate">
+                  <div className={`text-sm truncate ${conv.unread ? 'font-semibold text-gray-800' : 'text-gray-500'}`}>
                     {conv.lastMessage?.message.replace(/\n/g, ' ') || 'No messages yet'}
                   </div>
                 </div>
