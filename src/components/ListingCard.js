@@ -19,13 +19,10 @@ const CATEGORY_ICONS = {
 };
 
 function PlaceholderImage({ category }) {
-  const iconPath = CATEGORY_ICONS[category] || CATEGORY_ICONS.Other;
   return (
     <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center" style={{ background: 'linear-gradient(135deg, #1a2f5e 0%, #2D4B8E 100%)' }}>
-      <svg className="w-12 h-12 mb-3 opacity-40" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={1}>
-        <path strokeLinecap="round" strokeLinejoin="round" d={iconPath} />
-      </svg>
-      <span className="text-white/40 text-xs font-semibold tracking-widest uppercase">{category}</span>
+      <span className="text-white font-black text-2xl tracking-tight mb-1">TradeNWA</span>
+      <span className="text-amber-400 font-semibold text-xs tracking-widest uppercase">{category}</span>
     </div>
   );
 }

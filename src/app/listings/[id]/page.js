@@ -307,13 +307,20 @@ export default function ListingDetail() {
         <div className="grid md:grid-cols-2 gap-8">
           {/* Left: Photo */}
           <div>
-            <div className="rounded-2xl overflow-hidden bg-gray-100 aspect-[4/3]">
-              <img
-                src={listing.photo || `https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80`}
-                alt={listing.title}
-                className="w-full h-full object-cover"
-                onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80'; }}
-              />
+            <div className="rounded-2xl overflow-hidden bg-gray-100 aspect-[4/3] relative">
+              {listing.photo ? (
+                <img
+                  src={listing.photo}
+                  alt={listing.title}
+                  className="w-full h-full object-cover"
+                  onError={(e) => { e.target.style.display = 'none'; }}
+                />
+              ) : (
+                <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ background: 'linear-gradient(135deg, #1a2f5e 0%, #2D4B8E 100%)' }}>
+                  <span className="text-white font-black text-3xl tracking-tight mb-1">TradeNWA</span>
+                  <span className="text-amber-400 font-semibold text-sm tracking-widest uppercase">{listing.category}</span>
+                </div>
+              )}
             </div>
 
             {/* Safety tip */}

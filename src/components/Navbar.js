@@ -29,17 +29,17 @@ export default function Navbar() {
         setProfile(prof);
 
         // Unread conversations count
-        const { data: u1 } = await supabase
+        const { count: c1 } = await supabase
           .from('conversations')
-          .select('id', { count: 'exact' })
+          .select('id', { count: 'exact', head: true })
           .eq('user_1_id', user.id)
           .eq('user_1_unread', true);
-        const { data: u2 } = await supabase
+        const { count: c2 } = await supabase
           .from('conversations')
-          .select('id', { count: 'exact' })
+          .select('id', { count: 'exact', head: true })
           .eq('user_2_id', user.id)
           .eq('user_2_unread', true);
-        setUnreadCount((u1?.length || 0) + (u2?.length || 0));
+        setUnreadCount((c1 || 0) + (c2 || 0));
       }
     }
 
