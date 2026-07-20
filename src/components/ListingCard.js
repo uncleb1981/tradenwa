@@ -4,19 +4,31 @@ import Link from 'next/link';
 import Avatar from './Avatar';
 import { daysRemaining } from '@/lib/store';
 
-const PLACEHOLDER_IMAGES = {
-  Services: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80',
-  Tools: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&q=80',
-  Electronics: 'https://images.unsplash.com/photo-1550009158-9ebf69173e03?w=600&q=80',
-  Furniture: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80',
-  'Outdoor/Sports': 'https://images.unsplash.com/photo-1526401485004-46910ecc8e2e?w=600&q=80',
-  Vehicles: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&q=80',
-  'Kids/Baby': 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600&q=80',
-  'Home/Garden': 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80',
-  'Farm/Garden': 'https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?w=600&q=80',
-  'Tickets/Events': 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80',
-  Other: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80',
+const CATEGORY_ICONS = {
+  Services: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0',
+  Tools: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z',
+  Electronics: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+  Furniture: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+  'Outdoor/Sports': 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064',
+  Vehicles: 'M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4',
+  'Kids/Baby': 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+  'Home/Garden': 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+  'Farm/Garden': 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z',
+  'Tickets/Events': 'M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z',
+  Other: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4',
 };
+
+function PlaceholderImage({ category }) {
+  const iconPath = CATEGORY_ICONS[category] || CATEGORY_ICONS.Other;
+  return (
+    <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center" style={{ background: 'linear-gradient(135deg, #1a2f5e 0%, #2D4B8E 100%)' }}>
+      <svg className="w-12 h-12 mb-3 opacity-40" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={1}>
+        <path strokeLinecap="round" strokeLinejoin="round" d={iconPath} />
+      </svg>
+      <span className="text-white/40 text-xs font-semibold tracking-widest uppercase">{category}</span>
+    </div>
+  );
+}
 
 const CONDITION_COLORS = {
   New: 'bg-emerald-100 text-emerald-800',
@@ -45,7 +57,7 @@ function isVerifiedNWA(zip) {
 
 export default function ListingCard({ listing, compact = false }) {
   const days = daysRemaining(listing.expiresAt);
-  const photo = listing.photo || PLACEHOLDER_IMAGES[listing.category] || PLACEHOLDER_IMAGES.Other;
+  const photo = listing.photo || null;
   const verified = isVerifiedNWA(listing.poster?.zip);
 
   return (
@@ -53,12 +65,16 @@ export default function ListingCard({ listing, compact = false }) {
       <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md border border-gray-100 hover:-translate-y-1 transition-all duration-200 cursor-pointer h-full flex flex-col">
         {/* Photo */}
         <div className="relative overflow-hidden bg-gray-100 h-56">
-          <img
-            src={photo}
-            alt={listing.title}
-            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            onError={(e) => { e.target.src = PLACEHOLDER_IMAGES[listing.category] || PLACEHOLDER_IMAGES.Other; }}
-          />
+          {photo ? (
+            <img
+              src={photo}
+              alt={listing.title}
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              onError={(e) => { e.target.style.display = 'none'; }}
+            />
+          ) : (
+            <PlaceholderImage category={listing.category} />
+          )}
           <div className="absolute top-2 left-2 flex gap-1 flex-wrap">
             <span className="bg-gray-100 text-gray-600 text-xs px-2.5 py-0.5 rounded-full font-medium">
               {listing.category}
