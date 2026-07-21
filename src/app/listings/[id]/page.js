@@ -240,7 +240,8 @@ export default function ListingDetail() {
     }
 
     await supabase.from('listings').delete().eq('id', id);
-    router.push('/profile');
+    router.push('/');
+    router.refresh();
   }
 
   function handleShare() {
