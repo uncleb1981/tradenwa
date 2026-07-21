@@ -251,6 +251,7 @@ export default function ProfilePage() {
                         }
                         await supabase.from('listings').delete().eq('id', l.id);
                         setMyListings((prev) => prev.filter((x) => x.id !== l.id));
+                        router.refresh();
                       }}
                     >
                       Delete
