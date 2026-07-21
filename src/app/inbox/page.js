@@ -89,9 +89,22 @@ export default function InboxPage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
       <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-black text-gray-900">Inbox</h1>
-        </div>
+        <h1 className="text-2xl font-black text-gray-900">Inbox</h1>
+        {convs.some((c) => !c.listing) && (
+          <button
+            onClick={async () => {
+              const supabase = getSupabase();
+              const stale = convs.filter((c) => !c.listing).map((c) => c.id);
+              if (stale.length === 0) return;
+              await supabase.from('messages').delete().in('conversation_id', stale);
+              await supabase.from('conversations').delete().in('id', stale);
+              setConvs((prev) => prev.filter((c) => c.listing));
+            }}
+            className="text-xs font-semibold text-red-400 hover:text-red-500 transition-colors"
+          >
+            Remove unlisted chats
+          </button>
+        )}
       </div>
 
       {convs.length === 0 ? (
