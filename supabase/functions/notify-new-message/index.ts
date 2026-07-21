@@ -108,19 +108,25 @@ Deno.serve(async (req) => {
 </body>
 </html>`;
 
-    await fetch('https://api.resend.com/emails', {
+    const resendResp = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${RESEND_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'TradeNWA <onboarding@resend.dev>',
+        from: 'TradeNWA <noreply@tradenwa.com>',
         to: recipientUser.email,
         subject: `${senderName} sent you a trade offer on TradeNWA`,
         html: emailHtml,
       }),
     });
+
+    if (!resendResp.ok) {
+      const errBody = await resendResp.text();
+      console.error('Resend send failed:', resendResp.status, errBody);
+      return new Response('resend error', { status: 502 });
+    }
 
     return new Response('ok', { status: 200 });
   } catch (err) {

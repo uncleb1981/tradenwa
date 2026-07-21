@@ -45,6 +45,23 @@ export default function Navbar() {
 
     loadUser();
 
+    // Poll unread count every 15 seconds
+    const poll = setInterval(async () => {
+      const { data: { user: u } } = await supabase.auth.getUser();
+      if (!u) return;
+      const { count: c1 } = await supabase
+        .from('conversations')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_1_id', u.id)
+        .eq('user_1_unread', true);
+      const { count: c2 } = await supabase
+        .from('conversations')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_2_id', u.id)
+        .eq('user_2_unread', true);
+      setUnreadCount((c1 || 0) + (c2 || 0));
+    }, 15000);
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
       if (!session?.user) {
@@ -55,7 +72,10 @@ export default function Navbar() {
       }
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      subscription.unsubscribe();
+      clearInterval(poll);
+    };
   }, []);
 
   function handleSearch(e) {

@@ -74,6 +74,8 @@ export default function InboxPage() {
       setLoading(false);
     }
     fetchInbox();
+    const poll = setInterval(fetchInbox, 15000);
+    return () => clearInterval(poll);
   }, []);
 
   if (loading) return (

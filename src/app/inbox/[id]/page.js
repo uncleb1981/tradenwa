@@ -275,6 +275,19 @@ export default function ChatPage() {
         <div ref={bottomRef} />
       </div>
 
+      {/* If listing is gone — show cleanup banner for both users */}
+      {!listing && (
+        <div className="mb-3 w-full rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 flex items-center justify-between gap-3">
+          <span className="text-xs text-gray-400">This listing has been removed.</span>
+          <button
+            onClick={handleDeleteConversation}
+            className="text-xs font-semibold text-red-400 hover:text-red-500 transition-colors flex-shrink-0"
+          >
+            Remove from inbox
+          </button>
+        </div>
+      )}
+
       {/* Remove listing — only visible to the listing owner */}
       {listing && user && listingOwnerId === user.id && (
         removed ? (
