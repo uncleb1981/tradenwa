@@ -240,6 +240,15 @@ export default function ProfilePage() {
                       onClick={async () => {
                         if (!window.confirm('Delete this listing? This cannot be undone.')) return;
                         const supabase = getSupabase();
+                        const { data: convs } = await supabase
+                          .from('conversations')
+                          .select('id')
+                          .eq('listing_id', l.id);
+                        const convIds = (convs || []).map((c) => c.id);
+                        if (convIds.length > 0) {
+                          await supabase.from('messages').delete().in('conversation_id', convIds);
+                          await supabase.from('conversations').delete().in('id', convIds);
+                        }
                         await supabase.from('listings').delete().eq('id', l.id);
                         setMyListings((prev) => prev.filter((x) => x.id !== l.id));
                       }}
