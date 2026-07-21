@@ -55,9 +55,9 @@ export default function ChatPage() {
         .eq('id', id);
 
       setOtherUser(isUser1 ? convRow.user2 : convRow.user1);
-      const adapted = convRow.listings ? adaptListing(convRow.listings) : null;
-      setListing(adapted);
-      setListingOwnerId(convRow.listings?.user_id || null);
+      const rawListing = convRow.listings || null;
+      setListingOwnerId(rawListing?.user_id || null);
+      setListing(rawListing ? adaptListing(rawListing) : null);
 
       // Fetch messages
       const { data: msgs } = await supabase
